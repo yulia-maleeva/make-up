@@ -8,17 +8,19 @@ import BestBrands from "../../organisms/BestBrands";
 
 import styled from "styled-components";
 
-const Home = () => (
-  <Layout>
-    <Swiper />
-    <MainWrapper>
-      <MainContainer>
-        <Services />
-        {/*<BestBrands />*/}
-      </MainContainer>
-    </MainWrapper>
-  </Layout>
-);
+const Home = () => {
+  return (
+    <Layout>
+      <Swiper />
+      <MainWrapper>
+        <MainContainer>
+          <Services />
+          <BestBrands />
+        </MainContainer>
+      </MainWrapper>
+    </Layout>
+  );
+};
 export default Home;
 
 const MainWrapper = styled.main`

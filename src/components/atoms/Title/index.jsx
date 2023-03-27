@@ -12,6 +12,10 @@ Title.propTypes = {
 
 export default Title;
 
+Title.proptypes = {
+  title: PropTypes.string.isRequired,
+};
+
 const CustomTitle = styled.h2`
   font-size: 36px;
   font-weight: 500;

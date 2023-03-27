@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import { getProduct } from "../../../api";
 
 import Layout from "../Layout";
+import ProductAccordion from "../../organisms/ProductAccordion";
 
 import Rating from "@mui/material/Rating";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import styled from "styled-components";
 import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
 
 const Product = () => {
-  const [product, setProduct] = useState([]);
+  const { id } = useParams();
+
+  const [product, setProduct] = useState(null);
 
   const getData = async () => {
     const data = await getProduct({
-      id: 38316,
+      id: id,
       country: "SG",
       language: "en-SG",
     });
 
     const productAttributes = data.data.data.attributes;
-    console.log(productAttributes);
 
     setProduct(productAttributes);
   };
@@ -34,70 +34,47 @@ const Product = () => {
 
   return (
     <Layout>
-      <MainContainer>
-        <ProductContainer>
-          <ProductMainInfoContainer>
-            <ProductImageContainer>
-              <ProductImage src="" alt="image" />
-            </ProductImageContainer>
-            <ProductMainInfo>
-              <ProductName>{product.name}</ProductName>
-              <ProductDescription
-                dangerouslySetInnerHTML={{ __html: product.description }}
-              ></ProductDescription>
-              <Rating readOnly value={4.5} precision={0.1} size="large" />
-              <ProductPrice>$18</ProductPrice>
-            </ProductMainInfo>
-          </ProductMainInfoContainer>
-          <ProductAdditionalInfoContainer>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <AccordionTitle>How to use</AccordionTitle>
-              </AccordionSummary>
-              <AccordionDetails>
-                <AccordionDescription></AccordionDescription>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <AccordionTitle>Ingridients</AccordionTitle>
-              </AccordionSummary>
-              <AccordionDetails>
-                <AccordionDescription>
-                  Avocado Retinol Eye Sleeping Mask
-                </AccordionDescription>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel3a-content"
-                id="panel3a-header"
-              >
-                <AccordionTitle>Benefits</AccordionTitle>
-              </AccordionSummary>
-              <AccordionDetails>
-                <AccordionDescription>
-                  This midi-size set of bestsellers, including the cult
-                  favourite Watermelon Niacinamide Dew Drops, harnesses the
-                  power of watermelon and clinically effective actives - PHA,
-                  BHA, retinol, and hyaluronic acid - to visibly brighten,
-                  tighten pores, gently exfoliate, and hydrate. Discover real
-                  results and glowing skin.
-                </AccordionDescription>
-              </AccordionDetails>
-            </Accordion>
-          </ProductAdditionalInfoContainer>
-        </ProductContainer>
-      </MainContainer>
+      {product && (
+        <MainContainer>
+          <ProductContainer>
+            <ProductMainInfoContainer>
+              <ProductImageContainer>
+                <ProductImage
+                  src={product["image-urls"][0]}
+                  alt={product.name}
+                />
+              </ProductImageContainer>
+              <ProductMainInfo>
+                <ProductName>{product.name}</ProductName>
+                <ProductDescription
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                ></ProductDescription>
+                <Rating
+                  value={product.rating}
+                  precision={0.1}
+                  readOnly
+                  size="large"
+                />
+                <ProductPrice>{product["display-price"]}</ProductPrice>
+              </ProductMainInfo>
+            </ProductMainInfoContainer>
+            <ProductAdditionalInfoContainer>
+              <ProductAccordion
+                title="How to use"
+                description={product["how-to-text"]}
+              />
+              <ProductAccordion
+                title="Ingridients"
+                description={product.ingredients}
+              />
+              <ProductAccordion
+                title="Benefits"
+                description={product.benefits}
+              />
+            </ProductAdditionalInfoContainer>
+          </ProductContainer>
+        </MainContainer>
+      )}
     </Layout>
   );
 };
@@ -169,13 +146,4 @@ const ProductAdditionalInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
-`;
-
-const AccordionTitle = styled.p`
-  font-weight: 600;
-  text-transform: uppercase;
-`;
-
-const AccordionDescription = styled.div`
-  line-height: 36px;
 `;

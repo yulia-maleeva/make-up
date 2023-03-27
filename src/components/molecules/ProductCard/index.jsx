@@ -1,4 +1,6 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import ROUTES from "../../../constants/routes/index.js";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,20 +14,22 @@ import {
   orangeColor,
 } from "../../../constants/colorPalette/index.js";
 
-const ProductCard = ({ name, image }) => (
-  <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
-    <CardContainer>
-      <CardMedia component="img" image={image} alt={name} />
-      <CardInfo>
-        <Title variant="button" component="h3">
-          {name}
-        </Title>
-        <Text variant="body2" component="p">
-          Text
-        </Text>
-      </CardInfo>
-    </CardContainer>
-  </CustomCard>
+const ProductCard = ({ id, name, image, price }) => (
+  <Link to={`${ROUTES.PRODUCT}${id}`}>
+    <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
+      <CardContainer>
+        <CardMedia component="img" image={image} alt={name} />
+        <CardInfo>
+          <Title variant="button" component="h3">
+            {name}
+          </Title>
+          <Text variant="body2" component="p">
+            ${price}
+          </Text>
+        </CardInfo>
+      </CardContainer>
+    </CustomCard>
+  </Link>
 );
 
 export default ProductCard;
