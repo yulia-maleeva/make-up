@@ -6,15 +6,10 @@ import styled from "styled-components";
 
 const Title = ({ title }) => <CustomTitle>{title}</CustomTitle>;
 
-Title.propTypes = {
-  title: PropTypes.string.isRequired,
-};
+
 
 export default Title;
 
-Title.proptypes = {
-  title: PropTypes.string.isRequired,
-};
 
 const CustomTitle = styled.h2`
   font-size: 36px;

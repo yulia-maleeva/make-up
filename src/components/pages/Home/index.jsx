@@ -4,7 +4,8 @@ import Layout from "../Layout";
 
 import Swiper from "../../organisms/Swiper";
 import Services from "../../organisms/Services";
-import BestBrands from "../../organisms/BestBrands";
+import Bestsellers from "../../organisms/Bestsellers";
+import NewArrivals from "../../organisms/NewArrivals";
 
 import styled from "styled-components";
 
@@ -15,7 +16,8 @@ const Home = () => {
       <MainWrapper>
         <MainContainer>
           <Services />
-          <BestBrands />
+          <Bestsellers />
+          <NewArrivals />
         </MainContainer>
       </MainWrapper>
     </Layout>

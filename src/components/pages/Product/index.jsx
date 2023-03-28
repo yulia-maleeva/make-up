@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../../api";
 
 import Layout from "../Layout";
-import ProductAccordion from "../../organisms/ProductAccordion";
+import ProductAccordion from "../../molecules/ProductAccordion";
 
 import Rating from "@mui/material/Rating";
 
