@@ -35,45 +35,37 @@ const Product = () => {
   return (
     <Layout>
       {product && (
-        <MainContainer>
-          <ProductContainer>
-            <ProductMainInfoContainer>
-              <ProductImageContainer>
-                <ProductImage
-                  src={product["image-urls"][0]}
-                  alt={product.name}
-                />
-              </ProductImageContainer>
-              <ProductMainInfo>
-                <ProductName>{product.name}</ProductName>
-                <ProductDescription
-                  dangerouslySetInnerHTML={{ __html: product.description }}
-                ></ProductDescription>
-                <Rating
-                  value={product.rating}
-                  precision={0.1}
-                  readOnly
-                  size="large"
-                />
-                <ProductPrice>{product["display-price"]}</ProductPrice>
-              </ProductMainInfo>
-            </ProductMainInfoContainer>
-            <ProductAdditionalInfoContainer>
-              <ProductAccordion
-                title="How to use"
-                description={product["how-to-text"]}
+        <ProductContainer>
+          <ProductMainInfoContainer>
+            <ProductImageContainer>
+              <ProductImage src={product["image-urls"][0]} alt={product.name} />
+            </ProductImageContainer>
+            <ProductMainInfo>
+              <ProductName>{product.name}</ProductName>
+              <ProductDescription
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              ></ProductDescription>
+              <Rating
+                value={product.rating}
+                precision={0.1}
+                readOnly
+                size="large"
               />
-              <ProductAccordion
-                title="Ingridients"
-                description={product.ingredients}
-              />
-              <ProductAccordion
-                title="Benefits"
-                description={product.benefits}
-              />
-            </ProductAdditionalInfoContainer>
-          </ProductContainer>
-        </MainContainer>
+              <ProductPrice>{product["display-price"]}</ProductPrice>
+            </ProductMainInfo>
+          </ProductMainInfoContainer>
+          <ProductAdditionalInfoContainer>
+            <ProductAccordion
+              title="How to use"
+              description={product["how-to-text"]}
+            />
+            <ProductAccordion
+              title="Ingridients"
+              description={product.ingredients}
+            />
+            <ProductAccordion title="Benefits" description={product.benefits} />
+          </ProductAdditionalInfoContainer>
+        </ProductContainer>
       )}
     </Layout>
   );
@@ -81,19 +73,12 @@ const Product = () => {
 
 export default Product;
 
-const MainContainer = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 100px 0;
-`;
-
 const ProductContainer = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
   gap: 50px;
+  margin-top: 100px;
 `;
 
 const ProductMainInfoContainer = styled.div`

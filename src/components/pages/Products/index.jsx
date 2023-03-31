@@ -7,8 +7,15 @@ import Layout from "../Layout";
 import FilterPanel from "../../organisms/FilterPanel";
 import CardsContainer from "../../molecules/CardsContainer";
 import Preloader from "../../molecules/Preloader";
+import Error from "../../molecules/Error";
 
-import Pagination from "@mui/material/Pagination";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Pagination,
+} from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
@@ -25,14 +32,16 @@ const customTheme = createTheme({
 const Products = () => {
   const { slug } = useParams();
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [checkedBrand, setCheckedBrand] = useState("");
   const [checkedFilter, setCheckedFilter] = useState("");
-
-  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const getData = async () => {
     setLoading(true);
@@ -45,16 +54,23 @@ const Products = () => {
       size: 30,
       country: "SG",
       language: "en-SG",
-      sort: "sales",
+      sort: selected,
     });
+
+    if (!data.statusText === "OK") {
+      setLoading(false);
+      setProducts([]);
+      setError(true);
+      return;
+    }
+
+    const updatedData = data.data;
 
     setLoading(false);
 
-    const updatedData = data.data;
-    console.log(updatedData);
-
     const productList = updatedData.data;
     setProducts(productList);
+    console.log(productList);
 
     const paginationData = updatedData.meta;
     setTotalPages(paginationData["total-pages"]);
@@ -75,23 +91,54 @@ const Products = () => {
     }
   };
 
+  const handleSelect = (e) => {
+    const selectName = e.target.innerText.toLowerCase();
+
+    switch (selectName) {
+      case "published at":
+        setSelected("published_at");
+        break;
+      case "$-$$$":
+        setSelected("price");
+        break;
+      case "$$$-$":
+        setSelected("-price");
+        break;
+      default:
+        setSelected(selectName);
+    }
+  };
+
   useEffect(() => {
     getData();
-  }, [currentPage, checkedBrand, checkedFilter, slug]);
+  }, [currentPage, checkedBrand, checkedFilter, selected, slug]);
 
   return (
     <Layout>
       {loading && <Preloader />}
-
+      {error && <Error />}
       {products && (
-        <MainContainer>
-          <Container>
+        <>
+          <ProductsContainer>
             <FilterPanel
               saveCheckedBrand={saveCheckedBrand}
               saveCheckedFilters={saveCheckedFilters}
             />
-            <CardsContainer data={products} />
-          </Container>
+            <ProductsWrapper>
+              <FormControl size="small" sx={{ width: 200 }}>
+                <InputLabel>Sort</InputLabel>
+                <Select label="Sort">
+                  <MenuItem onClick={handleSelect}>Relevance</MenuItem>
+                  <MenuItem onClick={handleSelect}>Sales</MenuItem>
+                  <MenuItem onClick={handleSelect}>Published at</MenuItem>
+                  <MenuItem onClick={handleSelect}>Rating</MenuItem>
+                  <MenuItem onClick={handleSelect}>$-$$$</MenuItem>
+                  <MenuItem onClick={handleSelect}>$$$-$</MenuItem>
+                </Select>
+              </FormControl>
+              <CardsContainer data={products} />
+            </ProductsWrapper>
+          </ProductsContainer>
           <ThemeProvider theme={customTheme}>
             <Pagination
               count={totalPages}
@@ -117,7 +164,7 @@ const Products = () => {
               }}
             />
           </ThemeProvider>
-        </MainContainer>
+        </>
       )}
     </Layout>
   );
@@ -125,18 +172,15 @@ const Products = () => {
 
 export default Products;
 
-const MainContainer = styled.main`
-  width: 100%;
+const ProductsContainer = styled.div`
+  width: 80%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 50px;
-  margin: 100px 0;
+  margin-top: 100px;
 `;
 
-const Container = styled.div`
-  width: 90%;
+const ProductsWrapper = styled.div`
   display: flex;
-  gap: 50px;
+  flex-direction: column;
+  gap: 10px;
 `;

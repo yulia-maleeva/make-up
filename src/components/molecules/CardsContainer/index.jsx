@@ -8,9 +8,8 @@ const CardsContainer = ({ data }) => {
     <>
       <Grid container spacing={3}>
         {data.map((product) => (
-          <Grid item xl={2.4} lg={3} md={3} sm={6} xs={12}>
+          <Grid item xl={2.4} lg={3} md={3} sm={6} xs={12} key={product.id}>
             <ProductCard
-              key={product.id}
               id={product.id}
               name={product.attributes.name}
               image={product.attributes["default-image-urls"][0]}

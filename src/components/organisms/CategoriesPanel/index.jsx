@@ -71,6 +71,10 @@ const CustomLink = styled(Link)`
   color: #ffffff;
   text-decoration: none;
 
+  &:focus {
+    outline: none;
+  }
+
   &:hover {
     color: #000000;
   }

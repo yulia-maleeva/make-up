@@ -6,13 +6,11 @@ import styled from "styled-components";
 
 const Title = ({ title }) => <CustomTitle>{title}</CustomTitle>;
 
-
-
 export default Title;
-
 
 const CustomTitle = styled.h2`
   font-size: 36px;
   font-weight: 500;
+  line-height: 32px;
   text-transform: uppercase;
 `;

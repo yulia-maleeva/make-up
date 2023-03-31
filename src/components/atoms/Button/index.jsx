@@ -1,16 +1,23 @@
 import React from "react";
-
-import Button from "@mui/material/Button";
+import Button  from "@mui/material/Button";
 
 import styled from "styled-components";
+import { orangeColor } from "../../../constants/colorPalette";
 
-const MyBtn = () => <CustomButton variant="outlined">Outlined</CustomButton>;
+const StyledButton = ({ text }) => (
+  <CustomButton variant="outlined">{text}</CustomButton>
+);
 
-export default MyBtn;
+export default StyledButton;
 
 const CustomButton = styled(Button)`
-  background-color: white !important;
+  width: 150px;
+  background-color: transparent !important;
+  border-color: ${orangeColor} !important;
+  color: ${orangeColor} !important;
+
   &:hover {
-    background-color: orange !important;
+    background-color: ${orangeColor} !important;
+    color: #ffffff !important;
   }
 `;

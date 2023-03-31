@@ -108,11 +108,10 @@ const FilterPanel = ({ saveCheckedBrand, saveCheckedFilters }) => {
             ))}
         </FilterGroup>
       </FilterCategory>
-
-      <FilterCategory>
+      <>
         {filters &&
           filters.map((filter) => (
-            <>
+            <FilterCategory>
               <FilterTitle>{filter.name}</FilterTitle>
               <FilterGroup>
                 {filter.values.map((value) => (
@@ -130,9 +129,9 @@ const FilterPanel = ({ saveCheckedBrand, saveCheckedFilters }) => {
                   />
                 ))}
               </FilterGroup>
-            </>
+            </FilterCategory>
           ))}
-      </FilterCategory>
+      </>
     </FilterContainer>
   );
 };

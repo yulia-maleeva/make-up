@@ -15,7 +15,7 @@ import {
 } from "../../../constants/colorPalette/index.js";
 
 const ProductCard = ({ id, name, image, price }) => (
-  <Link to={`${ROUTES.PRODUCT}${id}`}>
+  <CustomLink to={`${ROUTES.PRODUCT}${id}`}>
     <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
       <CardContainer>
         <CardMedia component="img" image={image} alt={name} />
@@ -24,12 +24,12 @@ const ProductCard = ({ id, name, image, price }) => (
             {name}
           </Title>
           <Text variant="body2" component="p">
-            ${price}
+            ${price / 100}
           </Text>
         </CardInfo>
       </CardContainer>
     </CustomCard>
-  </Link>
+  </CustomLink>
 );
 
 export default ProductCard;
@@ -56,4 +56,8 @@ const Title = styled(Typography)`
 const Text = styled(Typography)`
   text-align: center;
   color: ${darkGreyColor};
+`;
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
 `;

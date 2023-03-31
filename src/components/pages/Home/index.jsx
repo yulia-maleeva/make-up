@@ -13,29 +13,10 @@ const Home = () => {
   return (
     <Layout>
       <Swiper />
-      <MainWrapper>
-        <MainContainer>
-          <Services />
-          <Bestsellers />
-          <NewArrivals />
-        </MainContainer>
-      </MainWrapper>
+      <NewArrivals />
+      <Bestsellers />
+      <Services />
     </Layout>
   );
 };
 export default Home;
-
-const MainWrapper = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 100px 0;
-`;
-
-const MainContainer = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  gap: 130px;
-`;

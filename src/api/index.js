@@ -6,11 +6,10 @@ const REACT_BASE_URL = "/";
 const api = axios.create({
   baseURL: REACT_BASE_URL,
   headers: {
-    "X-RapidAPI-Key": "8fe50fe912mshfdb2b3fedff20d7p1793b0jsn58cc4947c642",
+    "X-RapidAPI-Key": "09047c13d8msh4061e3864efdb75p162f55jsn062474047960",
     "X-RapidAPI-Host": "sephora.p.rapidapi.com",
   },
 });
-
 /*
 export const getProducts = (params) => {
   return api.get("products/v2/list", {
@@ -34,8 +33,7 @@ export const getCategories = (params) => {
   return api.get("categories/v2/list", {
     params: params,
   });
-};
-*/
+};*/
 
 export const getProducts = (params) => {
   return api.get("products.json", {

@@ -16,12 +16,12 @@ export default Preloader;
 
 const ProgressBar = styled.div`
   width: 100%;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin: 100px 0;
 `;
 
 const ProgressTitle = styled.p`

@@ -6,7 +6,7 @@ import ProductCard from "../../molecules/ProductCard";
 import styled from "styled-components";
 
 const NewArrivals = () => (
-  <CardsWrapper>
+  <CardsSection>
     <Title title="New Arrivals" />
     <CardsContainer>
       <ProductCard
@@ -34,12 +34,13 @@ const NewArrivals = () => (
         price="117.00"
       />
     </CardsContainer>
-  </CardsWrapper>
+  </CardsSection>
 );
 
 export default NewArrivals;
 
-const CardsWrapper = styled.div`
+const CardsSection = styled.section`
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
