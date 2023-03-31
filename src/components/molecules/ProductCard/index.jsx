@@ -24,7 +24,7 @@ const ProductCard = ({ id, name, image, price }) => (
             {name}
           </Title>
           <Text variant="body2" component="p">
-            ${price / 100}
+            ${price}
           </Text>
         </CardInfo>
       </CardContainer>

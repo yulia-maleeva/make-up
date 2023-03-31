@@ -1,11 +1,13 @@
 import React from "react";
-import Button  from "@mui/material/Button";
+import Button from "@mui/material/Button";
 
 import styled from "styled-components";
 import { orangeColor } from "../../../constants/colorPalette";
 
-const StyledButton = ({ text }) => (
-  <CustomButton variant="outlined">{text}</CustomButton>
+const StyledButton = ({ text, onClick }) => (
+  <CustomButton variant="outlined" onClick={onClick}>
+    {text}
+  </CustomButton>
 );
 
 export default StyledButton;

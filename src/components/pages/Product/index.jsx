@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../../api";
 
 import Layout from "../Layout";
+import Button from "../../atoms/Button";
 import ProductAccordion from "../../molecules/ProductAccordion";
 
 import Rating from "@mui/material/Rating";
@@ -11,10 +12,15 @@ import Rating from "@mui/material/Rating";
 import styled from "styled-components";
 import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
 
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../store/actions/cart";
+
 const Product = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
+
+  const dispatch = useDispatch();
 
   const getData = async () => {
     const data = await getProduct({
@@ -26,6 +32,16 @@ const Product = () => {
     const productAttributes = data.data.data.attributes;
 
     setProduct(productAttributes);
+    console.log(productAttributes);
+  };
+
+  const addItemToCart = () => {
+    const item = {
+      image: product["cart-image-urls"][0],
+      name: product.name,
+      price: product["display-price"],
+    };
+    dispatch(addItem(item));
   };
 
   useEffect(() => {
@@ -52,6 +68,7 @@ const Product = () => {
                 size="large"
               />
               <ProductPrice>{product["display-price"]}</ProductPrice>
+              <Button text="Add to bag" onClick={addItemToCart} />
             </ProductMainInfo>
           </ProductMainInfoContainer>
           <ProductAdditionalInfoContainer>
