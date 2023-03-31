@@ -1,33 +1,33 @@
 import React from "react";
 
-import Socials from "../Socials";
-import Form from "../Form";
 import Logo from "../../atoms/Logo";
+import CustomerCare from "../CustomerCare";
+import FooterPanel from "../FooterPanel";
+
+import { Box } from "@mui/material";
 
 import styled from "styled-components";
-import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
+import { darkGreyColor } from "../../../constants/colorPalette";
 
 const Footer = () => (
   <CustomFooter>
     <FooterContainer>
-      <Container>
-        <LogoContainer>
+      <FooterInfoBlock>
+        <LogoBlock>
           <Logo />
-          <p style={{ color: darkGreyColor }}>
-            Looking for high-quality makeup without breaking the bank? Look no
-            further.
-          </p>
-        </LogoContainer>
-        <Form />
-        <p>something</p>
-      </Container>
-      <Container>
-        <Socials />
-        <p>
-          © 2023,
-          <span style={{ color: orangeColor }}>MAKEUP</span>. Powered by Yulia
-        </p>
-      </Container>
+          <LogoBlockDescription>
+            Looking for high-quality makeup without breaking the bank?
+            <br />
+            Look no further.
+          </LogoBlockDescription>
+        </LogoBlock>
+        <p>Something</p>
+        <CustomerCare />
+      </FooterInfoBlock>
+      <Box>
+        <hr></hr>
+      </Box>
+      <FooterPanel />
     </FooterContainer>
   </CustomFooter>
 );
@@ -39,22 +39,32 @@ const CustomFooter = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
+  padding: 50px 0;
   background-color: #fff8f6;
 `;
 
 const FooterContainer = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: column;
+  gap: 25px;
 `;
 
-const Container = styled.div`
+const FooterInfoBlock = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 150px;
 `;
 
-const LogoContainer = styled.div`
+const LogoBlock = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+`;
+
+const LogoBlockDescription = styled.p`
+  line-height: 26px;
+  color: ${darkGreyColor};
 `;

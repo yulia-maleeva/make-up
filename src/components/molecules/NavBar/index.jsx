@@ -8,28 +8,18 @@ import { orangeColor } from "../../../constants/colorPalette";
 
 const NavBar = () => {
   return (
-    <nav>
-      <CustomLinksList>
-        <li>
-          <CustomLink to={ROUTES.HOME}>Home</CustomLink>
-        </li>
-        <li>
-          <CustomLink to={ROUTES.PRODUCTS}>Products</CustomLink>
-        </li>
-        <li>
-          <CustomLink to={ROUTES.ABOUT}>About</CustomLink>
-        </li>
-        <li>
-          <CustomLink to={ROUTES.CONTACTS}>Contacts</CustomLink>
-        </li>
-      </CustomLinksList>
-    </nav>
+    <CustomLinksList>
+      <CustomLink to={ROUTES.HOME}>Home</CustomLink>
+      <CustomLink to={ROUTES.PRODUCTS}>Products</CustomLink>
+      <CustomLink to={ROUTES.ABOUT}>About</CustomLink>
+      <CustomLink to={ROUTES.CONTACTS}>Contacts</CustomLink>
+    </CustomLinksList>
   );
 };
 
 export default NavBar;
 
-const CustomLinksList = styled.ul`
+const CustomLinksList = styled.nav`
   display: flex;
   gap: 50px;
 `;
@@ -38,6 +28,10 @@ const CustomLink = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
   color: #000000;
+
+  &:focus {
+    outline: none;
+  }
 
   &:hover {
     color: ${orangeColor};

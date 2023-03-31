@@ -1,85 +1,164 @@
 import React, { useState, useEffect } from "react";
 import { getFilters } from "../../../api";
 
-const FilterPanel = () => {
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+
+import styled from "styled-components";
+
+const FilterPanel = ({ saveCheckedBrand, saveCheckedFilters }) => {
   const [brands, setBrands] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [checkedBrand, setCheckedBrand] = useState("");
+  const [checkedFilters, setcheckedFilters] = useState(null);
 
   const getData = async () => {
     const data = await getFilters({
-      root_brand: "aerin",
       root_category: "makeup",
+      brand: checkedBrand,
       country: "SG",
       language: "en-SG",
     });
 
     const updatedData = data.data;
-    console.log(updatedData);
 
-    const newBrands = [];
-    const newFilters = [];
+    const filteredBrands = updatedData.included.filter(
+      (item) => item.type === "brands"
+    );
 
-    updatedData.included.map((includedItem) => {
-      if (includedItem.type === "brands") {
-        newBrands.push(includedItem.attributes.name);
+    setBrands(filteredBrands);
+
+    const filteredTypesAndValues = updatedData.included.filter(
+      (item) => item.type === "filter-types" || item.type === "filter-values"
+    );
+
+    let filteredItem = false;
+    let filteredItems = [];
+
+    filteredTypesAndValues.forEach((item, key, arr) => {
+      if (item.type === "filter-types") {
+        if (filteredItem) {
+          filteredItems.push(filteredItem);
+        } else {
+          filteredItem = {};
+        }
+
+        filteredItem = {
+          id: item.id,
+          name: item.attributes.name,
+          values: [],
+        };
+      }
+
+      if (item.type === "filter-values") {
+        filteredItem.values.push({
+          id: item.id,
+          value: item.attributes.value,
+        });
+      }
+
+      if (key === arr.length - 1) {
+        filteredItems.push(filteredItem);
       }
     });
 
-    let filterItem = {};
-
-    updatedData.included
-      .filter(
-        (includedItem) => !["categories", "brands"].includes(includedItem.type)
-      )
-      .forEach((includedItem, key, arr) => {
-        if (includedItem.type == "filter-types") {
-          if (filterItem) {
-            newFilters.push(filterItem);
-          }
-
-          filterItem = {
-            name: includedItem.attributes.name,
-            id: includedItem.id,
-            values: [],
-          };
-        }
-
-        if (includedItem.type == "filter-values") {
-          filterItem.values.push({
-            value: includedItem.attributes.value,
-            id: includedItem.id,
-          });
-        }
-
-        if (key === arr.length - 1) {
-          newFilters.push(filterItem);
-        }
-      });
-
-    console.log(newFilters);
-
-    setBrands(newBrands);
-    setFilters(newFilters);
+    setFilters(filteredItems);
   };
+
+  const checkBrand = (e) => {
+    if (e.target.checked) {
+      setCheckedBrand(e.target.id);
+    } else {
+      setCheckedBrand("");
+    }
+  };
+
+  const checkFilter = (e) => {
+    setcheckedFilters({
+      type: e.target.dataset.id,
+      value: e.target.id,
+    });
+  };
+
+  saveCheckedBrand(checkedBrand);
+  saveCheckedFilters(checkedFilters);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [checkedBrand, checkedFilters]);
 
   return (
-    <>
-      <h3>Brands</h3>
-      {brands.map((brand) => (
-        <>
-          <label>{brand}</label>
-          <br />
-          <input type="checkbox" />
-        </>
-      ))}
-
-      <h3>Categories</h3>
-    </>
+    <FilterContainer>
+      <FilterCategory>
+        <FilterTitle>Brands</FilterTitle>
+        <FilterGroup>
+          {brands &&
+            brands.map((brand) => (
+              <FormControlLabel
+                key={brand.attributes.name}
+                control={
+                  <Checkbox
+                    id={brand.id}
+                    onChange={checkBrand}
+                    sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
+                  />
+                }
+                label={brand.attributes.name}
+              />
+            ))}
+        </FilterGroup>
+      </FilterCategory>
+      <>
+        {filters &&
+          filters.map((filter) => (
+            <FilterCategory>
+              <FilterTitle>{filter.name}</FilterTitle>
+              <FilterGroup>
+                {filter.values.map((value) => (
+                  <FormControlLabel
+                    key={value.value}
+                    control={
+                      <Checkbox
+                        inputProps={{ "data-id": filter.id }}
+                        id={value.id}
+                        onChange={checkFilter}
+                        sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
+                      />
+                    }
+                    label={value.value}
+                  />
+                ))}
+              </FilterGroup>
+            </FilterCategory>
+          ))}
+      </>
+    </FilterContainer>
   );
 };
 
 export default FilterPanel;
+
+const FilterContainer = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const FilterCategory = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const FilterTitle = styled.h4`
+  font-weight: 600;
+  text-transform: uppercase;
+`;
+
+const FilterGroup = styled.div`
+  max-height: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;

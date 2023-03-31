@@ -1,7 +1,8 @@
 import React from "react";
 
-import NavBar from "../../molecules/NavBar";
 import Logo from "../../atoms/Logo";
+import NavBar from "../../molecules/NavBar";
+import SearchBar from "../../molecules/SearchBar";
 
 import styled from "styled-components";
 
@@ -10,6 +11,7 @@ const Header = () => (
     <HeaderContainer>
       <Logo />
       <NavBar />
+      <SearchBar />
     </HeaderContainer>
   </CustomHeader>
 );
@@ -25,7 +27,7 @@ const CustomHeader = styled.header`
 `;
 
 const HeaderContainer = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;

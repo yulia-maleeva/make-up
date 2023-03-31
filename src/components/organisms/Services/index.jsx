@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { lightGreyColor } from "../../../constants/colorPalette";
 
 const Services = () => (
-  <ServicesWrapper>
+  <ServicesSection>
     {services.map((service) => (
       <ServiceContainer key={service.name}>
         {service.icon}
@@ -16,14 +16,16 @@ const Services = () => (
         </ServiceInfoContainer>
       </ServiceContainer>
     ))}
-  </ServicesWrapper>
+  </ServicesSection>
 );
 
 export default Services;
 
-const ServicesWrapper = styled.div`
+const ServicesSection = styled.section`
+  width: 80%;
   display: flex;
-  gap: 150px;
+  justify-content: space-between;
+  gap: 100px;
 `;
 
 const ServiceContainer = styled.div`
