@@ -19,9 +19,12 @@ export default Layout;
 
 const MainWrapper = styled.main`
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 100px;
+
+  @media (max-width: 480px) {
+    gap: 50px;
+  }
 `;

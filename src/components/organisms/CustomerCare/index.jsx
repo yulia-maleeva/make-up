@@ -1,13 +1,16 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+import ROUTES from "../../../constants/routes";
+
 import styled from "styled-components";
-import { darkGreyColor } from "../../../constants/colorPalette";
+import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
 
 const CustomerCare = () => (
   <CustomerCareContainer>
     <CustomerCareTitle>Customer Care</CustomerCareTitle>
-    <FormDescription>FAQ</FormDescription>
-    <FormDescription>Privacy Policy</FormDescription>
+    <CustomLink to={ROUTES.FAQ}>FAQ</CustomLink>
+    <CustomLink to={ROUTES.PRIVACY_POLICY}>Privacy Policy</CustomLink>
   </CustomerCareContainer>
 );
 
@@ -26,8 +29,13 @@ const CustomerCareTitle = styled.p`
   text-align: center;
 `;
 
-const FormDescription = styled.p`
+const CustomLink = styled(Link)`
+  text-decoration: none;
   line-height: 26px;
   text-align: center;
   color: ${darkGreyColor};
+
+  &:hover {
+    color: ${orangeColor};
+  }
 `;

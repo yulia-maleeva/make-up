@@ -7,8 +7,6 @@ import Services from "../../organisms/Services";
 import Bestsellers from "../../organisms/Bestsellers";
 import NewArrivals from "../../organisms/NewArrivals";
 
-import styled from "styled-components";
-
 const Home = () => {
   return (
     <Layout>

@@ -17,17 +17,8 @@ import {
   Pagination,
 } from "@mui/material";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
-
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#f6623e",
-      contrastText: "#ffffff",
-    },
-  },
-});
+import { orangeColor, whiteColor } from "../../../constants/colorPalette";
 
 const Products = () => {
   const { slug } = useParams();
@@ -70,7 +61,6 @@ const Products = () => {
 
     const productList = updatedData.data;
     setProducts(productList);
-    console.log(productList);
 
     const paginationData = updatedData.meta;
     setTotalPages(paginationData["total-pages"]);
@@ -111,13 +101,19 @@ const Products = () => {
 
   useEffect(() => {
     getData();
-  }, [currentPage, checkedBrand, checkedFilter, selected, slug]);
+    console.log("1");
+  }, [currentPage, checkedBrand, checkedFilter, selected]);
+
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   console.log("2");
+  // }, [checkedBrand, checkedFilter]);
 
   return (
     <Layout>
       {loading && <Preloader />}
       {error && <Error />}
-      {products && (
+      {products && !loading && (
         <>
           <ProductsContainer>
             <FilterPanel
@@ -136,34 +132,20 @@ const Products = () => {
                   <MenuItem onClick={handleSelect}>$$$-$</MenuItem>
                 </Select>
               </FormControl>
+
               <CardsContainer data={products} />
             </ProductsWrapper>
           </ProductsContainer>
-          <ThemeProvider theme={customTheme}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handleChange}
-              showFirstButton
-              showLastButton
-              variant="outlined"
-              shape="rounded"
-              sx={{
-                "& .Mui-selected": {
-                  backgroundColor: customTheme.palette.primary.main,
-                  color: customTheme.palette.primary.contrastText,
-                },
-                "& .Mui-selected:hover": {
-                  backgroundColor: customTheme.palette.primary.main,
-                  color: customTheme.palette.primary.contrastText,
-                },
-                "& .MuiPaginationItem-root:hover": {
-                  backgroundColor: customTheme.palette.primary.main,
-                  color: customTheme.palette.primary.contrastText,
-                },
-              }}
-            />
-          </ThemeProvider>
+          <CustomPagination
+            siblingCount={0}
+            count={totalPages}
+            page={currentPage}
+            onChange={handleChange}
+            showFirstButton
+            showLastButton
+            variant="outlined"
+            shape="rounded"
+          />
         </>
       )}
     </Layout>
@@ -177,10 +159,23 @@ const ProductsContainer = styled.div`
   display: flex;
   gap: 50px;
   margin-top: 100px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+    margin-top: 50px;
+  }
 `;
 
 const ProductsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+`;
+
+const CustomPagination = styled(Pagination)`
+  & .MuiPaginationItem-root:hover,
+  & .Mui-selected {
+    background-color: ${orangeColor} !important;
+    color: ${whiteColor};
+  }
 `;

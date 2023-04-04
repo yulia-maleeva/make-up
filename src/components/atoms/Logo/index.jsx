@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-const Logo = () => <CustomLogo src="/assets/svg/logo.svg" />;
+const Logo = () => <CustomLogo src="/assets/svg/logo.svg" alt="logo" />;
 
 export default Logo;
 

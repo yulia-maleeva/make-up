@@ -22,10 +22,24 @@ const CustomFooterPanel = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 769px) {
+    gap: 50px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const Copyright = styled.p`
   line-height: 26px;
+
+  @media (max-width: 769px) {
+    font-size: 12px;
+    text-align: center;
+  }
 `;
 
 const CreditCardsImage = styled.img`

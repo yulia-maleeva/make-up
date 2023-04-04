@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 import ROUTES from "../../../constants/routes/index.js";
 
@@ -24,13 +26,20 @@ const ProductCard = ({ id, name, image, price }) => (
             {name}
           </Title>
           <Text variant="body2" component="p">
-            ${price / 100}
+            ${price}
           </Text>
         </CardInfo>
       </CardContainer>
     </CustomCard>
   </CustomLink>
 );
+
+ProductCard.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
 
 export default ProductCard;
 

@@ -1,20 +1,32 @@
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import React from "react";
+import PropTypes from "prop-types";
+
+import {
+  Accordion as MuiAccordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import styled from "styled-components";
 
-const ProductAccordion = ({ title, description }) => (
-  <Accordion>
+const Accordion = ({ title, description }) => (
+  <MuiAccordion>
     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
       <AccordionTitle>{title}</AccordionTitle>
     </AccordionSummary>
     <AccordionDetails>
       <AccordionDescription dangerouslySetInnerHTML={{ __html: description }} />
     </AccordionDetails>
-  </Accordion>
+  </MuiAccordion>
 );
 
-export default ProductAccordion;
+Accordion.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
+export default Accordion;
 
 const AccordionTitle = styled.p`
   font-weight: 600;

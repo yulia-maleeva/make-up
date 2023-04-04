@@ -45,9 +45,18 @@ const CardsSection = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 60px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+  }
 `;
 
 const CardsContainer = styled.div`
   display: flex;
   gap: 30px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 15px;
+  }
 `;

@@ -3,19 +3,19 @@ import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import styled from "styled-components";
-import { orangeColor } from "../../../constants/colorPalette";
+import { lightGreyColor, orangeColor } from "../../../constants/colorPalette";
 
 const Preloader = () => (
-  <ProgressBar>
-    <ProgressTitle>Loading...</ProgressTitle>
-    <Progress />
-  </ProgressBar>
+  <PreloaderContainer>
+    <PreloaderTitle>Loading...</PreloaderTitle>
+    <CustomPreloader />
+  </PreloaderContainer>
 );
 
 export default Preloader;
 
-const ProgressBar = styled.div`
-  width: 100%;
+const PreloaderContainer = styled.div`
+  width: 80%;
   min-height: 50vh;
   display: flex;
   flex-direction: column;
@@ -24,11 +24,26 @@ const ProgressBar = styled.div`
   gap: 20px;
 `;
 
-const ProgressTitle = styled.p`
+const PreloaderTitle = styled.p`
   font-size: 24px;
+  text-transform: uppercase;
 `;
 
-const Progress = styled(LinearProgress)`
-  width: 50%;
+const CustomPreloader = styled(LinearProgress)`
+  width: 100%;
   height: 10px !important;
+
+  .MuiLinearProgress-bar {
+    background-color: ${orangeColor};
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: ${lightGreyColor};
+  }
 `;

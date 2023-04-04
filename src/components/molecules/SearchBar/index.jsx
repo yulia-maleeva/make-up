@@ -17,6 +17,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 import styled from "styled-components";
+import {
+  blackColor,
+  orangeColor,
+  whiteColor,
+} from "../../../constants/colorPalette";
 
 const SearchBar = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +49,6 @@ const SearchBar = () => {
 
   const handleInput = (e) => {
     const inputValue = e.target.value.trim();
-    console.log(inputValue);
 
     if (inputValue === "") {
       setIsActive(false);
@@ -55,14 +59,9 @@ const SearchBar = () => {
       setTimerId(
         setTimeout(() => {
           getData(inputValue);
-          console.log(inputValue);
         }, 1000)
       );
     }
-  };
-
-  const handleBlur = () => {
-    setIsActive(false);
   };
 
   useEffect(() => {
@@ -94,6 +93,15 @@ const SearchBar = () => {
               )}
             </>
           ),
+        }}
+        sx={{
+          "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: `${orangeColor}`,
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              borderColor: `${orangeColor}`,
+            },
         }}
       />
       <CustomList className={isActive ? "active" : ""}>
@@ -130,7 +138,7 @@ const CustomList = styled(List)`
     max-height: 230px;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
+    background-color: ${whiteColor};
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     overflow: auto;
@@ -149,7 +157,7 @@ const CustomLink = styled(Link)`
 
 const ProductName = styled.p`
   font-size: 14px;
-  color: #000000;
+  color: ${blackColor};
 `;
 
 const RotatingIcon = styled(AutorenewIcon)`

@@ -43,7 +43,7 @@ const About = () => (
         community that celebrates individuality, creativity, and
         self-expression.
       </Text>
-      <VideoPlayer />
+      <VideoPlayer url="https://www.youtube.com/watch?v=mpkS7d_Nw5M&ab_channel=SephoraCanada" />
     </AboutContainer>
   </Layout>
 );
@@ -56,4 +56,10 @@ const AboutContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   margin-top: 100px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+    align-items: center;
+    margin-top: 50px;
+  }
 `;

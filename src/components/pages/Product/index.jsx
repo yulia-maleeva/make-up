@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../../api";
 
 import Layout from "../Layout";
-import ProductAccordion from "../../molecules/ProductAccordion";
+import Accordion from "../../molecules/Accordion";
+import Error from "../../molecules/Error";
 
 import Rating from "@mui/material/Rating";
 
@@ -34,38 +35,40 @@ const Product = () => {
 
   return (
     <Layout>
-      {product && (
+      {product ? (
         <ProductContainer>
           <ProductMainInfoContainer>
             <ProductImageContainer>
-              <ProductImage src={product["image-urls"][0]} alt={product.name} />
+              <ProductImage
+                src={product?.["image-urls"]?.[0]}
+                alt={product?.name}
+              />
             </ProductImageContainer>
             <ProductMainInfo>
-              <ProductName>{product.name}</ProductName>
+              <ProductName>{product?.name}</ProductName>
               <ProductDescription
-                dangerouslySetInnerHTML={{ __html: product.description }}
+                dangerouslySetInnerHTML={{ __html: product?.description }}
               ></ProductDescription>
               <Rating
-                value={product.rating}
+                value={product?.rating}
                 precision={0.1}
                 readOnly
                 size="large"
               />
-              <ProductPrice>{product["display-price"]}</ProductPrice>
+              <ProductPrice>{product?.["display-price"]}</ProductPrice>
             </ProductMainInfo>
           </ProductMainInfoContainer>
           <ProductAdditionalInfoContainer>
-            <ProductAccordion
+            <Accordion
               title="How to use"
-              description={product["how-to-text"]}
+              description={product?.["how-to-text"]}
             />
-            <ProductAccordion
-              title="Ingridients"
-              description={product.ingredients}
-            />
-            <ProductAccordion title="Benefits" description={product.benefits} />
+            <Accordion title="Ingredients" description={product?.ingredients} />
+            <Accordion title="Benefits" description={product?.benefits} />
           </ProductAdditionalInfoContainer>
         </ProductContainer>
+      ) : (
+        <Error />
       )}
     </Layout>
   );

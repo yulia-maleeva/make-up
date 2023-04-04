@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Grid } from "@mui/material";
 import ProductCard from "../../molecules/ProductCard";
@@ -20,6 +21,10 @@ const CardsContainer = ({ data }) => {
       </Grid>
     </>
   );
+};
+
+CardsContainer.propTypes = {
+  data: PropTypes.array,
 };
 
 export default CardsContainer;

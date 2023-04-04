@@ -26,6 +26,16 @@ const ServicesSection = styled.section`
   display: flex;
   justify-content: space-between;
   gap: 100px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    flex-direction: column;
+    gap: 50px;
+  }
 `;
 
 const ServiceContainer = styled.div`
@@ -48,8 +58,16 @@ const Title = styled.h3`
   font-size: 24px;
   font-weight: 500;
   text-transform: uppercase;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const Description = styled.p`
   color: ${lightGreyColor};
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;

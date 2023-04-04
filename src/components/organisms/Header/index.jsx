@@ -24,6 +24,10 @@ const CustomHeader = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 const HeaderContainer = styled.div`
@@ -31,4 +35,14 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 769px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    flex-direction: column;
+    gap: 20px;
+  }
 `;

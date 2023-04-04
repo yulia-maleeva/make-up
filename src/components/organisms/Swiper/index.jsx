@@ -1,9 +1,14 @@
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Scrollbar } from "swiper";
+import { Navigation, Scrollbar } from "swiper";
+
+import { Link } from "react-router-dom";
+import ROUTES from "../../../constants/routes";
 
 import StyledButton from "../../atoms/Button";
+
+import slides from "../../../constants/slides";
 
 import styled from "styled-components";
 import { orangeColor } from "../../../constants/colorPalette";
@@ -15,39 +20,29 @@ import "swiper/css/scrollbar";
 export default () => {
   return (
     <SwiperSection>
-      <Swiper
+       <Swiper
         slidesPerView={1}
         loop={true}
-        modules={[Autoplay, Navigation, Scrollbar]}
+        modules={[Navigation, Scrollbar]}
         navigation
         scrollbar={{ draggable: true }}
       >
-        <SwiperSlide>
-          <Slide1 />
-          <MottoContainer>
-            <Motto>Makeup for every mood, every style, every you</Motto>
-            <StyledButton text="Shop" />
-          </MottoContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide2 />
-          <MottoContainer>
-            <Motto>
-              Transform your look and express yourself with our makeup products
-            </Motto>
-            <StyledButton text="Shop" />
-          </MottoContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide3 />
-          <MottoContainer>
-            <Motto>
-              Indulge in luxury with the best quality makeup from top brands
-            </Motto>
-            <StyledButton text="Shop" />
-          </MottoContainer>
-        </SwiperSlide>
-      </Swiper>
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.image}>
+            <Slide
+              style={{
+                backgroundImage: `url(${slide.image})`,
+              }}
+            />
+            <MottoContainer>
+              <Motto>{slide.motto}</Motto>
+              <CustomLink to={ROUTES.PRODUCTS}>
+                <StyledButton text="Shop" />
+              </CustomLink>
+            </MottoContainer>
+          </SwiperSlide>
+        ))}
+      </Swiper> 
     </SwiperSection>
   );
 };
@@ -63,44 +58,46 @@ const SwiperSection = styled.section`
       color: ${orangeColor};
     }
   }
+
+  @media (max-width: 769px) {
+    width: 100%;
+  }
 `;
 
-const Slide1 = styled.div`
+const Slide = styled.div`
   width: 100%;
   height: 600px;
-  background-image: url(/assets/images/slides/makeup-slide-1.webp);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-const Slide2 = styled.div`
-  width: 100%;
-  height: 600px;
-  background-image: url(/assets/images/slides/makeup-slide-2.webp);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-const Slide3 = styled.div`
-  width: 100%;
-  height: 600px;
-  background-image: url(/assets/images/slides/makeup-slide-3.webp);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 `;
 
 const MottoContainer = styled.div`
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 20px;
   position: absolute;
   top: 20px;
+  left: 20px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+    align-items: center;
+  }
+`;
+
+const CustomLink = styled(Link)`
+  width: 150px;
+  text-decoration: none;
 `;
 
 const Motto = styled.p`
   font-size: 24px;
   font-weight: 600;
+
+  @media (max-width: 769px) {
+    font-size: 18px;
+    text-align: center;
+  }
 `;
