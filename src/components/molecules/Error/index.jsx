@@ -29,6 +29,7 @@ const ErrorContainer = styled.div`
   width: 80%;
   min-height: 50vh;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   gap: 20px;

@@ -45,17 +45,17 @@ const BurgerIcon = styled(MenuIcon)`
 `;
 
 const CustomLinksList = styled.nav`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
   left: ${({ open }) => (open ? "0" : "-100%")};
-  background-color: ${whiteColor};
-  height: 100%;
-  width: 100%;
-  padding-top: 80px;
-  transition: all 0.3s ease-in-out;
   z-index: 100;
+  padding-top: 80px;
+  background-color: ${whiteColor};
+  transition: all 0.3s ease-in-out;
 
   & svg {
     position: absolute;

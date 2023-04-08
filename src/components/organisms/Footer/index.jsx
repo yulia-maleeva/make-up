@@ -21,7 +21,6 @@ const Footer = () => (
             Look no further.
           </LogoBlockDescription>
         </LogoBlock>
-        <p>Something</p>
         <CustomerCare />
       </FooterInfoBlock>
       <Box>

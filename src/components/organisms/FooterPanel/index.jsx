@@ -12,7 +12,7 @@ const FooterPanel = () => (
       © 2023,
       <span style={{ color: orangeColor }}> MAKEUP</span>. Powered by Yulia
     </Copyright>
-    <CreditCardsImage src="assets/images/credit-cards.png" alt="Credit Cards" />
+    <CreditCardsImage src="/assets/images/credits.png" alt="Credit Cards" />
   </CustomFooterPanel>
 );
 

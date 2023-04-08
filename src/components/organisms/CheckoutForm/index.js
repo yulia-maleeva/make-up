@@ -20,12 +20,12 @@ const inputStyles = {
   },
 };
 
-const FeedBackForm = () => {
+const CheckoutForm = () => {
   const [showSnackbar, setshowSnackbar] = useState(false);
 
   return (
     <Formik
-      initialValues={{ name: "", email: "", mobile: "", message: "" }}
+      initialValues={{ name: "", email: "", mobile: "" }}
       onSubmit={(values, formikHelpers) => {
         formikHelpers.resetForm();
         setshowSnackbar(true);
@@ -35,13 +35,12 @@ const FeedBackForm = () => {
         email: string()
           .required("Please enter your email")
           .email("Invalid email"),
-        mobile: string().matches(
-          /^\+380\d{3}\d{2}\d{2}\d{2}$/,
-          "Please enter a valid mobile number: it must start with +380"
-        ),
-        message: string()
-          .required("Please enter your message")
-          .min(10, "Too short"),
+        mobile: string()
+          .required("Please enter your mobile")
+          .matches(
+            /^\+380\d{3}\d{2}\d{2}\d{2}$/,
+            "Please enter a valid mobile number: it must start with +380"
+          ),
       })}
     >
       {(props) => (
@@ -51,7 +50,7 @@ const FeedBackForm = () => {
             onClose={() => setshowSnackbar(false)}
             autoHideDuration={3000}
           >
-            <CustomSnackbarContent message="Your data has been sent" />
+            <CustomSnackbarContent message="Thank you for your order" />
           </Snackbar>
           <CustomForm>
             <Field
@@ -91,35 +90,18 @@ const FeedBackForm = () => {
               size="small"
               sx={inputStyles}
               fullWidth
+              required
               error={
                 Boolean(props.errors.mobile) && Boolean(props.touched.mobile)
               }
               helperText={Boolean(props.touched.mobile) && props.errors.mobile}
-            />
-            <Field
-              as={TextField}
-              name="message"
-              type="text"
-              label="Message"
-              variant="outlined"
-              multiline
-              rows={3}
-              sx={inputStyles}
-              fullWidth
-              required
-              error={
-                Boolean(props.errors.message) && Boolean(props.touched.message)
-              }
-              helperText={
-                Boolean(props.touched.message) && props.errors.message
-              }
             />
             <CustomButton
               type="submit"
               disabled={!props.dirty || !props.isValid}
               variant="contained"
             >
-              Submit
+              Confirm order
             </CustomButton>
           </CustomForm>
         </FormContainer>
@@ -128,9 +110,10 @@ const FeedBackForm = () => {
   );
 };
 
-export default FeedBackForm;
+export default CheckoutForm;
 
 const FormContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;

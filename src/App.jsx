@@ -8,8 +8,11 @@ import Products from "./components/pages/Products";
 import Product from "./components/pages/Product";
 import About from "./components/pages/About";
 import Contacts from "./components/pages/Contacts";
+import ShippingAndDelivery from "./components/pages/ShippingAndDelivery";
 import FAQ from "./components/pages/FAQ";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
+import Offer from "./components/pages/Offer";
+import Checkout from "./components/pages/Checkout";
 import NotFound from "./components/pages/NotFound";
 
 const App = () => (
@@ -21,8 +24,14 @@ const App = () => (
       <Route path={`${ROUTES.PRODUCT}:id`} element={<Product />} />
       <Route path={ROUTES.ABOUT} element={<About />} />
       <Route path={ROUTES.CONTACTS} element={<Contacts />} />
+      <Route
+        path={ROUTES.SHIPPING_AND_DELIVERY}
+        element={<ShippingAndDelivery />}
+      />
       <Route path={ROUTES.FAQ} element={<FAQ />} />
       <Route path={ROUTES.PRIVACY_POLICY} element={<PrivacyPolicy />} />
+      <Route path={ROUTES.OFFER} element={<Offer />} />
+      <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>

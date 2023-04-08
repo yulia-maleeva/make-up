@@ -1,19 +1,29 @@
 import React from "react";
 
+import { useDispatch } from "react-redux";
+import { toggleCart } from "../../../store/actions/cart";
+
 import Header from "../../organisms/Header";
 import CategoriesPanel from "../../organisms/CategoriesPanel";
 import Footer from "../../organisms/Footer";
+import Cart from "../../organisms/Cart";
 
 import styled from "styled-components";
 
-const Layout = ({ children }) => (
-  <>
-    <Header />
-    <CategoriesPanel />
-    <MainWrapper>{children}</MainWrapper>
-    <Footer />
-  </>
-);
+const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+  dispatch(toggleCart(false));
+
+  return (
+    <>
+      <Cart />
+      <Header />
+      <CategoriesPanel />
+      <MainWrapper>{children}</MainWrapper>
+      <Footer />
+    </>
+  );
+};
 
 export default Layout;
 

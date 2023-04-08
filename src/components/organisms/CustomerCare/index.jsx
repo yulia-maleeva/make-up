@@ -9,8 +9,12 @@ import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
 const CustomerCare = () => (
   <CustomerCareContainer>
     <CustomerCareTitle>Customer Care</CustomerCareTitle>
+    <CustomLink to={ROUTES.SHIPPING_AND_DELIVERY}>
+      Shipping & Delivery
+    </CustomLink>
     <CustomLink to={ROUTES.FAQ}>FAQ</CustomLink>
     <CustomLink to={ROUTES.PRIVACY_POLICY}>Privacy Policy</CustomLink>
+    <CustomLink to={ROUTES.OFFER}>Offer</CustomLink>
   </CustomerCareContainer>
 );
 
@@ -20,6 +24,7 @@ const CustomerCareContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: end;
   gap: 20px;
 `;
 

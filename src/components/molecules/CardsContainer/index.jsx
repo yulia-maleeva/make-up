@@ -15,6 +15,7 @@ const CardsContainer = ({ data }) => {
               name={product.attributes.name}
               image={product.attributes["default-image-urls"][0]}
               price={product.attributes.price}
+              showenPrice={product.attributes.price / 100}
             />
           </Grid>
         ))}

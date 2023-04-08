@@ -6,8 +6,10 @@ import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { orangeColor, whiteColor } from "../../../constants/colorPalette";
 
-const StyledButton = ({ text }) => (
-  <CustomButton variant="outlined">{text}</CustomButton>
+const StyledButton = ({ text, onClick }) => (
+  <CustomButton variant="outlined" onClick={onClick}>
+    {text}
+  </CustomButton>
 );
 
 StyledButton.propTypes = {
