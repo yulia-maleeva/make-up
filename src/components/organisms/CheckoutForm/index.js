@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { getInvoice } from "../../../api";
+
+import { useSelector } from "react-redux";
 
 import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
 
-import { TextField, Button, Snackbar, SnackbarContent } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
 import styled from "styled-components";
 import { orangeColor, whiteColor } from "../../../constants/colorPalette";
@@ -21,14 +25,52 @@ const inputStyles = {
 };
 
 const CheckoutForm = () => {
-  const [showSnackbar, setshowSnackbar] = useState(false);
+  const cartProducts = useSelector((state) => state.cart.cart);
+
+  const getMonobankResponse = async () => {
+    const basketOrder = cartProducts.map((product) => {
+      return {
+        name: product.name,
+        qty: product.quantity,
+        sum: product.price * product.quantity,
+        icon: product.image,
+        unit: "pcs",
+      };
+    });
+
+    const calcTotalSum = () => {
+      let totalSum = 0;
+
+      cartProducts.map((product) => {
+        const productSum = product.price * product.quantity;
+        totalSum += productSum;
+      });
+
+      return totalSum;
+    };
+
+    const response = await getInvoice({
+      amount: calcTotalSum(),
+      ccy: 840,
+      merchantPaymInfo: {
+        reference: "84d0070ee4e44667b31371d8f8813947",
+        destination: "MAKEUP",
+        basketOrder,
+      },
+      redirectUrl: `${window.location.origin}/`,
+      validity: 3600,
+      paymentType: "debit",
+    });
+
+    window.location.href = response.data.pageUrl;
+  };
 
   return (
     <Formik
       initialValues={{ name: "", email: "", mobile: "" }}
-      onSubmit={(values, formikHelpers) => {
+      onSubmit={(formikHelpers) => {
+        getMonobankResponse();
         formikHelpers.resetForm();
-        setshowSnackbar(true);
       }}
       validationSchema={object({
         name: string().required("Please enter your name").min(3, "Too short"),
@@ -45,13 +87,6 @@ const CheckoutForm = () => {
     >
       {(props) => (
         <FormContainer>
-          <Snackbar
-            open={showSnackbar}
-            onClose={() => setshowSnackbar(false)}
-            autoHideDuration={3000}
-          >
-            <CustomSnackbarContent message="Thank you for your order" />
-          </Snackbar>
           <CustomForm>
             <Field
               as={TextField}
@@ -121,11 +156,6 @@ const FormContainer = styled.div`
   @media (max-width: 480px) {
     align-items: center;
   }
-`;
-
-const CustomSnackbarContent = styled(SnackbarContent)`
-  background-color: ${orangeColor} !important;
-  color: ${whiteColor} !important;
 `;
 
 const CustomForm = styled(Form)`

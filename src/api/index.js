@@ -59,3 +59,14 @@ export const getCategories = (params) => {
     params: params,
   });
 };
+
+const monobankApi = axios.create({
+  baseURL: "https://api.monobank.ua/",
+  headers: {
+    "X-Token": "uZh2yQb49lwPZapVEUqkY2RJdJ-YSN_tsYiAAdkP9Gxk",
+  },
+});
+
+export const getInvoice = (params) => {
+  return monobankApi.post("api/merchant/invoice/create", params);
+};
