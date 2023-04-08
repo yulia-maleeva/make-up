@@ -6,15 +6,17 @@ import ROUTES from "../../../constants/routes";
 import { getCategories } from "../../../api";
 
 import styled from "styled-components";
-import { orangeColor } from "../../../constants/colorPalette";
+import {
+  blackColor,
+  orangeColor,
+  whiteColor,
+} from "../../../constants/colorPalette";
 
 const CategoriesPanel = () => {
   const [categories, setCategories] = useState(null);
 
   const getData = async () => {
     const data = await getCategories({
-      number: "1",
-      size: "100",
       country: "SG",
       language: "en-SG",
     });
@@ -59,16 +61,36 @@ const CategoriesContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${orangeColor};
-  color: #ffffff;
+  color: ${whiteColor};
+
+  @media (max-width: 480px) {
+    height: 100px;
+  }
 `;
 
 const CategoriesList = styled.ul`
   display: flex;
   gap: 40px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
 `;
 
 const CustomLink = styled(Link)`
-  color: #ffffff;
+  color: ${whiteColor};
   text-decoration: none;
 
   &:focus {
@@ -76,6 +98,6 @@ const CustomLink = styled(Link)`
   }
 
   &:hover {
-    color: #000000;
+    color: ${blackColor};
   }
 `;

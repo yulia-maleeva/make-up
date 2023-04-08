@@ -1,36 +1,75 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../store/actions/cart";
+
 import { Link } from "react-router-dom";
 import ROUTES from "../../../constants/routes/index.js";
 
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActionArea,
+} from "@mui/material";
 
 import styled from "styled-components";
 import {
   darkGreyColor,
   orangeColor,
+  whiteColor,
 } from "../../../constants/colorPalette/index.js";
 
-const ProductCard = ({ id, name, image, price }) => (
-  <CustomLink to={`${ROUTES.PRODUCT}${id}`}>
-    <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
-      <CardContainer>
-        <CardMedia component="img" image={image} alt={name} />
-        <CardInfo>
-          <Title variant="button" component="h3">
-            {name}
-          </Title>
-          <Text variant="body2" component="p">
-            ${price / 100}
-          </Text>
-        </CardInfo>
-      </CardContainer>
-    </CustomCard>
-  </CustomLink>
-);
+const ProductCard = ({ id, name, image, price, showenPrice }) => {
+  const dispatch = useDispatch();
+
+  const addItemToCart = () => {
+    const item = {
+      id: id,
+      image: image,
+      name: name,
+      price: price,
+      displayPrice: `$${showenPrice}`,
+      quantity: 1,
+    };
+    dispatch(addItem(item));
+  };
+
+  return (
+    <CustomLink to={`${ROUTES.PRODUCT}${id}`}>
+      <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
+        <CardContainer>
+          <CustomButton
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation();
+              addItemToCart();
+            }}
+          >
+            Add to bag
+          </CustomButton>
+          <CardMedia component="img" image={image} alt={name} />
+          <CardInfo>
+            <Title variant="button" component="h3">
+              {name}
+            </Title>
+            <Text variant="body2" component="p">
+              ${showenPrice}
+            </Text>
+          </CardInfo>
+        </CardContainer>
+      </CustomCard>
+    </CustomLink>
+  );
+};
+ProductCard.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
 
 export default ProductCard;
 
@@ -60,4 +99,21 @@ const Text = styled(Typography)`
 
 const CustomLink = styled(Link)`
   text-decoration: none;
+`;
+
+const CustomButton = styled.button`
+  font-family: "Jost";
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: none;
+  background-color: ${orangeColor};
+  color: ${whiteColor};
+  border-radius: 4px;
+  padding: 5px;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;

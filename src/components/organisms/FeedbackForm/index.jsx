@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
 
-import { TextField, Button, Box } from "@mui/material";
-
-import Title from "../../atoms/Title";
-import Subtitle from "../../atoms/Subtitle";
-import Text from "../../atoms/Text";
+import { TextField, Button, Snackbar, SnackbarContent } from "@mui/material";
 
 import styled from "styled-components";
-import { darkGreyColor } from "../../../constants/colorPalette";
+import { orangeColor, whiteColor } from "../../../constants/colorPalette";
+
+const inputStyles = {
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: `${orangeColor}`,
+  },
+  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: `${orangeColor}`,
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: `${orangeColor}`,
+  },
+};
 
 const FeedBackForm = () => {
+  const [showSnackbar, setshowSnackbar] = useState(false);
+
   return (
     <Formik
       initialValues={{ name: "", email: "", mobile: "", message: "" }}
       onSubmit={(values, formikHelpers) => {
-        console.log(values);
         formikHelpers.resetForm();
+        setshowSnackbar(true);
       }}
       validationSchema={object({
         name: string().required("Please enter your name").min(3, "Too short"),
@@ -36,16 +46,14 @@ const FeedBackForm = () => {
     >
       {(props) => (
         <FormContainer>
-          <Title title="Keep In Touch" />
-          <Subtitle
-            subtitle="Wondering about an order, membership perks or just want to leave a
-            general feedback?"
-          ></Subtitle>
-          <Text>
-            Fill in the form below, or check out our FAQs—the answer might
-            already be there!
-          </Text>
-          <Form>
+          <Snackbar
+            open={showSnackbar}
+            onClose={() => setshowSnackbar(false)}
+            autoHideDuration={3000}
+          >
+            <CustomSnackbarContent message="Your data has been sent" />
+          </Snackbar>
+          <CustomForm>
             <Field
               as={TextField}
               name="name"
@@ -53,12 +61,12 @@ const FeedBackForm = () => {
               label="Name"
               variant="outlined"
               size="small"
+              sx={inputStyles}
               fullWidth
               required
               error={Boolean(props.errors.name) && Boolean(props.touched.name)}
               helperText={Boolean(props.touched.name) && props.errors.name}
             />
-            <Box height={10} />
             <Field
               as={TextField}
               name="email"
@@ -66,6 +74,7 @@ const FeedBackForm = () => {
               label="Email"
               variant="outlined"
               size="small"
+              sx={inputStyles}
               fullWidth
               required
               error={
@@ -73,7 +82,6 @@ const FeedBackForm = () => {
               }
               helperText={Boolean(props.touched.email) && props.errors.email}
             />
-            <Box height={10} />
             <Field
               as={TextField}
               name="mobile"
@@ -81,13 +89,13 @@ const FeedBackForm = () => {
               label="Phone Number (+380XXXXXXXXX)"
               variant="outlined"
               size="small"
+              sx={inputStyles}
               fullWidth
               error={
                 Boolean(props.errors.mobile) && Boolean(props.touched.mobile)
               }
               helperText={Boolean(props.touched.mobile) && props.errors.mobile}
             />
-            <Box height={10} />
             <Field
               as={TextField}
               name="message"
@@ -96,6 +104,7 @@ const FeedBackForm = () => {
               variant="outlined"
               multiline
               rows={3}
+              sx={inputStyles}
               fullWidth
               required
               error={
@@ -105,15 +114,14 @@ const FeedBackForm = () => {
                 Boolean(props.touched.message) && props.errors.message
               }
             />
-            <Box height={20} />
-            <Button
+            <CustomButton
               type="submit"
-              variant="contained"
               disabled={!props.dirty || !props.isValid}
+              variant="contained"
             >
               Submit
-            </Button>
-          </Form>
+            </CustomButton>
+          </CustomForm>
         </FormContainer>
       )}
     </Formik>
@@ -126,4 +134,40 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 480px) {
+    align-items: center;
+  }
+`;
+
+const CustomSnackbarContent = styled(SnackbarContent)`
+  background-color: ${orangeColor} !important;
+  color: ${whiteColor} !important;
+`;
+
+const CustomForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  width: 150px;
+
+  &:not(:disabled) {
+    background-color: ${whiteColor};
+    color: ${orangeColor};
+    border: 1px solid ${orangeColor};
+    box-shadow: none;
+  }
+
+  &:not(:disabled):hover {
+    background-color: ${orangeColor};
+    color: ${whiteColor};
+    box-shadow: none;
+  }
 `;

@@ -2,10 +2,13 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 
-const VideoPlayer = () => (
+const VideoPlayer = ({ url }) => (
   <ReactPlayer
-    url="https://www.youtube.com/watch?v=mpkS7d_Nw5M&ab_channel=SephoraCanada"
+    url={url}
     controls
+    width="100%"
+    style={{ maxWidth: "700px", width: "90%" }}
   />
 );
+
 export default VideoPlayer;

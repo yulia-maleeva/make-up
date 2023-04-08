@@ -21,7 +21,6 @@ const Footer = () => (
             Look no further.
           </LogoBlockDescription>
         </LogoBlock>
-        <p>Something</p>
         <CustomerCare />
       </FooterInfoBlock>
       <Box>
@@ -42,6 +41,10 @@ const CustomFooter = styled.footer`
   margin-top: 100px;
   padding: 50px 0;
   background-color: #fff8f6;
+
+  @media (max-width: 769px) {
+    margin-top: 50px;
+  }
 `;
 
 const FooterContainer = styled.div`
@@ -49,12 +52,26 @@ const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  @media (max-width: 769px) {
+    width: 90%;
+  }
 `;
 
 const FooterInfoBlock = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 150px;
+
+  @media (max-width: 769px) {
+    gap: 50px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
 `;
 
 const LogoBlock = styled.div`
@@ -62,9 +79,22 @@ const LogoBlock = styled.div`
   flex: 1;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 480px) {
+    align-items: center;
+  }
 `;
 
 const LogoBlockDescription = styled.p`
   line-height: 26px;
   color: ${darkGreyColor};
+
+  @media (max-width: 769px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    text-align: center;
+  }
 `;
