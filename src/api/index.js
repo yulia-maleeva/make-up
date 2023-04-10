@@ -3,7 +3,30 @@ import axios from "axios";
 //const REACT_BASE_URL = "https://sephora.p.rapidapi.com/";
 const REACT_BASE_URL = "/";
 
-const api = axios.create({
+const makeUpEndpoints = {
+  products: function () {
+    return process.env.ENV === "production"
+      ? "products/v2/list"
+      : "products.json";
+  },
+  product: function () {
+    return process.env.ENV === "production"
+      ? "products/v2/detail"
+      : "product.json";
+  },
+  filters: function () {
+    return process.env.ENV === "production"
+      ? "products/v2/get-filters"
+      : "filters.json";
+  },
+  categories: function () {
+    return process.env.ENV === "production"
+      ? "categories/v2/list"
+      : "categories.json";
+  },
+};
+
+const SephoraApi = axios.create({
   baseURL: REACT_BASE_URL,
   headers: {
     "X-RapidAPI-Key": process.env.SEPHORA_KEY,
@@ -11,51 +34,26 @@ const api = axios.create({
   },
 });
 
-/*
 export const getProducts = (params) => {
-  return api.get("products/v2/list", {
+  return SephoraApi.get(makeUpEndpoints.products(), {
     params: params,
   });
 };
 
 export const getProduct = (params) => {
-  return api.get("products/v2/detail", {
+  return SephoraApi.get(makeUpEndpoints.product(), {
     params: params,
   });
 };
 
 export const getFilters = (params) => {
-  return api.get("products/v2/get-filters", {
+  return SephoraApi.get(makeUpEndpoints.filters(), {
     params: params,
   });
 };
 
 export const getCategories = (params) => {
-  return api.get("categories/v2/list", {
-    params: params,
-  });
-};*/
-
-export const getProducts = (params) => {
-  return api.get("products.json", {
-    params: params,
-  });
-};
-
-export const getProduct = (params) => {
-  return api.get("product.json", {
-    params: params,
-  });
-};
-
-export const getFilters = (params) => {
-  return api.get("filters.json", {
-    params: params,
-  });
-};
-
-export const getCategories = (params) => {
-  return api.get("categories.json", {
+  return SephoraApi.get(makeUpEndpoints.categories(), {
     params: params,
   });
 };
