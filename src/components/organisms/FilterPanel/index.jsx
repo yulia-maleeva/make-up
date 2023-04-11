@@ -90,7 +90,7 @@ const FilterContainer = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 
   @media (max-width: 769px) {
     position: fixed;
@@ -133,5 +133,6 @@ const FilterGroup = styled.div`
   max-height: 200px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   overflow: auto;
 `;

@@ -92,6 +92,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         totalPrice: state.totalPrice - itemToDecrement.price,
       };
 
+    case CART_TYPES.CLEAR_CART:
+      localStorage.clear();
+
+      return {
+        ...state,
+        cart: [],
+        totalPrice: 0,
+      };
+
     default:
       return state;
   }

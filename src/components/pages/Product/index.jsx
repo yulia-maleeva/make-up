@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+import ROUTES from "../../../constants/routes";
+
 import { getProduct } from "../../../api";
 
 import Layout from "../Layout";
@@ -12,11 +15,17 @@ import Error from "../../molecules/Error";
 
 import Rating from "@mui/material/Rating";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import { useDispatch } from "react-redux";
 import { addItem } from "../../../store/actions/cart";
 
 import styled from "styled-components";
-import { darkGreyColor, orangeColor } from "../../../constants/colorPalette";
+import {
+  darkGreyColor,
+  orangeColor,
+  blackColor,
+} from "../../../constants/colorPalette";
 
 const Product = () => {
   const { id } = useParams();
@@ -33,6 +42,7 @@ const Product = () => {
   const getData = async () => {
     setProduct(null);
     setLoading(true);
+
     const data = await getProduct({
       id: id,
       country: "SG",
@@ -72,6 +82,10 @@ const Product = () => {
       {error && <Error />}
       {product && (
         <ProductContainer>
+          <BackLink to={ROUTES.PRODUCTS}>
+            <ArrowBackIcon />
+            Back
+          </BackLink>
           <ProductMainInfoContainer>
             <ProductImageContainer>
               <ProductImage
@@ -189,4 +203,18 @@ const ProductAdditionalInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+`;
+
+const BackLink = styled(Link)`
+  width: fit-content;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 24px;
+  display: flex;
+  color: ${blackColor};
+
+  &:hover {
+    color: ${orangeColor};
+  }
 `;

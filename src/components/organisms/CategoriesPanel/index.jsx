@@ -64,29 +64,13 @@ const CategoriesContainer = styled.div`
   color: ${whiteColor};
 
   @media (max-width: 480px) {
-    height: 100px;
+    display: none;
   }
 `;
 
 const CategoriesList = styled.ul`
   display: flex;
   gap: 40px;
-
-  @media (max-width: 769px) {
-    width: 90%;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  @media (max-width: 480px) {
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
-    align-items: center;
-    gap: 20px;
-    text-align: center;
-  }
 `;
 
 const CustomLink = styled(Link)`

@@ -83,7 +83,9 @@ const Checkout = () => {
                 ))}
               </CartItems>
             ) : (
-              <ProductDescription>Your cart is empty</ProductDescription>
+              <ProductDescription style={{ textAlign: "center" }}>
+                Your cart is empty
+              </ProductDescription>
             )}
             {totalPrice > 0 && (
               <Container>

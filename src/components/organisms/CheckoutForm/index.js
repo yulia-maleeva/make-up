@@ -2,6 +2,9 @@ import React from "react";
 
 import { getInvoice } from "../../../api";
 
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../../store/actions/cart";
+
 import { useSelector } from "react-redux";
 
 import { Formik, Form, Field } from "formik";
@@ -10,21 +13,27 @@ import { object, string } from "yup";
 import { TextField, Button } from "@mui/material";
 
 import styled from "styled-components";
-import { orangeColor, whiteColor } from "../../../constants/colorPalette";
+import {
+  orangeColor,
+  whiteColor,
+  lightGreyColor,
+} from "../../../constants/colorPalette";
 
 const inputStyles = {
   "& .MuiInputLabel-root.Mui-focused": {
-    color: `${orangeColor}`,
+    color: `${lightGreyColor}`,
   },
   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: `${orangeColor}`,
+    borderColor: `${lightGreyColor}`,
   },
   "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: `${orangeColor}`,
+    borderColor: `${lightGreyColor}`,
   },
 };
 
 const CheckoutForm = () => {
+  const dispatch = useDispatch();
+
   const cartProducts = useSelector((state) => state.cart.cart);
 
   const getMonobankResponse = async () => {
@@ -71,6 +80,7 @@ const CheckoutForm = () => {
       onSubmit={(formikHelpers) => {
         getMonobankResponse();
         formikHelpers.resetForm();
+        dispatch(clearCart());
       }}
       validationSchema={object({
         name: string().required("Please enter your name").min(3, "Too short"),
@@ -165,6 +175,7 @@ const CustomForm = styled(Form)`
 
   @media (max-width: 480px) {
     width: 100%;
+    align-items: center;
   }
 `;
 
