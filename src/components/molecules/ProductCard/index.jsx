@@ -25,6 +25,8 @@ import {
 const ProductCard = ({ id, name, image, price, showenPrice }) => {
   const dispatch = useDispatch();
 
+  console.log(price, showenPrice);
+
   const addItemToCart = () => {
     const item = {
       id: id,
@@ -43,7 +45,7 @@ const ProductCard = ({ id, name, image, price, showenPrice }) => {
         <CardContainer>
           <CustomButton
             onClick={(e) => {
-              e.preventDefault()
+              e.preventDefault();
               e.stopPropagation();
               addItemToCart();
             }}

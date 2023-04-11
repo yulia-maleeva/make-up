@@ -33,6 +33,7 @@ const Cart = () => {
   const toggle = useSelector((state) => state.cart.isCartOpen);
   const cartProducts = useSelector((state) => state.cart.cart);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
+  console.log(cartProducts);
 
   if (toggle) {
     return (

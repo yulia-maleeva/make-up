@@ -13,25 +13,29 @@ const Bestsellers = () => (
         id="12181"
         name="Match Stix Matte Contour Skinstick"
         image="/assets/images/products/Fenty-Beauty-Match-Stix-Matte-Skinstick.webp"
-        price="49.00"
+        price={4900}
+        showenPrice="49"
       />
       <ProductCard
         id="21679"
         name="Hot Lips Matte Revolution Lipstick"
         image="/assets/images/products/Charlotte-Tilbury-Hot-Lips-Matte-Revolution-Lipstick.webp"
-        price="51.00"
+        price={5100}
+        showenPrice="51"
       />
       <ProductCard
         id="35245"
         name="Rose Quartz Eyeshadow Palette"
         image="/assets/images/products/Huda-Beauty-Rose-Quartz-Eyeshadow-Palette.webp"
-        price="106.00"
+        price={10600}
+        showenPrice="106"
       />
       <ProductCard
         id="32367"
         name="Macro Blade Liquid Liner"
         image="/assets/images/products/Natasha-Denona-Macro-Blade-Liquid-Liner.webp"
-        price="42.00"
+        price={4200}
+        showenPrice="42"
       />
     </CardsContainer>
   </CardsSection>
