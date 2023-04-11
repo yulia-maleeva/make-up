@@ -32,21 +32,7 @@ const Cart = () => {
 
   const toggle = useSelector((state) => state.cart.isCartOpen);
   const cartProducts = useSelector((state) => state.cart.cart);
-
-  const getTotalPrice = () => {
-    let totalPrice = 0;
-
-    let itemTotalPrice = 0;
-
-    cartProducts.forEach((item) => {
-      const itemPrice = item.price / 100;
-      itemTotalPrice += itemPrice * item.quantity;
-    });
-
-    totalPrice += itemTotalPrice;
-
-    return totalPrice;
-  };
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   if (toggle) {
     return (
@@ -103,10 +89,10 @@ const Cart = () => {
         ) : (
           <ProductDescription>Your cart is empty</ProductDescription>
         )}
-        {getTotalPrice() > 0 && (
+        {totalPrice > 0 && (
           <Container>
             <CartTitle>Total</CartTitle>
-            <CartTitle>${getTotalPrice()}</CartTitle>
+            <CartTitle>${totalPrice / 100}</CartTitle>
           </Container>
         )}
 

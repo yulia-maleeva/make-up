@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+import { Link } from "react-router-dom";
+import ROUTES from "../../../constants/routes";
+
 import Logo from "../../atoms/Logo";
 import NavBar from "../../molecules/NavBar";
 import SearchBar from "../../molecules/SearchBar";
@@ -16,10 +19,12 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const cartProducts = useSelector((state) => state.cart.cart);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartProducts));
-  }, [cartProducts]);
+    localStorage.setItem("price", JSON.stringify(totalPrice));
+  }, [cartProducts, totalPrice]);
 
   const ProductsQuantity = cartProducts.reduce(
     (acc, product) => acc + product.quantity,
@@ -29,7 +34,9 @@ const Header = () => {
   return (
     <CustomHeader>
       <HeaderContainer>
-        <Logo />
+        <Link to={ROUTES.HOME}>
+          <Logo />
+        </Link>
         <NavBar />
         <SearchBar />
         <Badge badgeContent={ProductsQuantity} color="primary">

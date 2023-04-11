@@ -7,6 +7,7 @@ import { getProduct } from "../../../api";
 import Layout from "../Layout";
 import Button from "../../atoms/Button";
 import Accordion from "../../molecules/Accordion";
+import Preloader from "../../molecules/Preloader";
 import Error from "../../molecules/Error";
 
 import Rating from "@mui/material/Rating";
@@ -23,18 +24,25 @@ const Product = () => {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
+
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const [productId, setProductId] = useState("");
 
   const getData = async () => {
+    setProduct(null);
+    setLoading(true);
     const data = await getProduct({
       id: id,
       country: "SG",
       language: "en-SG",
     }).catch(() => {
+      setLoading(false);
       setError(true);
     });
+
+    setLoading(false);
 
     const productAttributes = data.data.data.attributes;
     setProduct(productAttributes);
@@ -60,6 +68,7 @@ const Product = () => {
 
   return (
     <Layout>
+      {loading && <Preloader />}
       {error && <Error />}
       {product && (
         <ProductContainer>

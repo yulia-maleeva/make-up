@@ -25,7 +25,6 @@ const NavBar = () => {
       <BurgerIcon onClick={toggleMenu} />
       <CustomLinksList open={menuOpen}>
         <CloseIcon onClick={toggleMenu} />
-        <CustomLink to={ROUTES.HOME}>Home</CustomLink>
         <CustomLink to={ROUTES.PRODUCTS}>Products</CustomLink>
         <CustomLink to={ROUTES.ABOUT}>About</CustomLink>
         <CustomLink to={ROUTES.CONTACTS}>Contacts</CustomLink>
