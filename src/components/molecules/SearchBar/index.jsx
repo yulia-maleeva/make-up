@@ -77,6 +77,7 @@ const SearchBar = () => {
         placeholder="Search"
         variant="outlined"
         size="small"
+        fullWidth
         onInput={handleInput}
         InputProps={{
           startAdornment: (
@@ -145,6 +146,11 @@ const CustomList = styled(List)`
     position: absolute !important;
     z-index: 10;
     top: 45px;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      max-height: 150px;
+    }
   }
 `;
 
@@ -158,6 +164,10 @@ const CustomLink = styled(Link)`
 const ProductName = styled.p`
   font-size: 14px;
   color: ${blackColor};
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const RotatingIcon = styled(AutorenewIcon)`

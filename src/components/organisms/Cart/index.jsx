@@ -33,7 +33,6 @@ const Cart = () => {
   const toggle = useSelector((state) => state.cart.isCartOpen);
   const cartProducts = useSelector((state) => state.cart.cart);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  console.log(cartProducts);
 
   if (toggle) {
     return (
@@ -116,12 +115,17 @@ const CartContainer = styled.div`
   flex-direction: column;
   gap: 30px;
   padding: 20px;
-  border-left: 1px solid ${lightGreyColor};
   position: fixed;
   top: 0;
   right: 0;
   z-index: 200;
   background-color: ${whiteColor};
+  border-left: 1px solid ${lightGreyColor};
+
+  @media (max-width: 480px) {
+    width: 100%;
+    border: none;
+  }
 `;
 
 const Container = styled.div`

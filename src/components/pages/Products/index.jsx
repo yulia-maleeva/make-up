@@ -172,6 +172,8 @@ const Products = () => {
             count={totalPages}
             page={currentPage}
             onChange={changePage}
+            siblingCount={0}
+            boundaryCount={0}
             showFirstButton
             showLastButton
             variant="outlined"
@@ -207,7 +209,7 @@ const ProductsContainer = styled.div`
 const ProductsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
 `;
 
 const CustomPagination = styled(Pagination)`
@@ -217,4 +219,3 @@ const CustomPagination = styled(Pagination)`
     color: ${whiteColor};
   }
 `;
-

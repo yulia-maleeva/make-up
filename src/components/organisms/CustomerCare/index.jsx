@@ -24,8 +24,12 @@ const CustomerCareContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  
+  align-items: end;
   gap: 20px;
+
+  @media (max-width: 480px) {
+    align-items: center;
+  }
 `;
 
 const CustomerCareTitle = styled.p`

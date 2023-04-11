@@ -26,8 +26,8 @@ const Contacts = () => {
           ></Subtitle>
           <Text>
             Fill in the form below, or check out our
-            <Link to={ROUTES.FAQ}> FAQs </Link> — the answer might already be
-            there!
+            <FAQLink to={ROUTES.FAQ}> FAQs </FAQLink> — the answer might already
+            be there!
           </Text>
           <FeedBackForm />
         </ContactContainer>
@@ -88,7 +88,7 @@ const ContactContainer = styled.div`
   gap: 20px;
 
   @media (max-width: 480px) {
-    align-items: center;
+    text-align: center;
   }
 `;
 
@@ -116,6 +116,14 @@ const CustomLink = styled(Link)`
   &:hover {
     color: ${orangeColor};
   }
+
+  @media (max-width: 480px) {
+    justify-content: center;
+  }
+`;
+
+const FAQLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const GoogleMap = styled.iframe`

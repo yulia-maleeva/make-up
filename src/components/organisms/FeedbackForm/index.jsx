@@ -6,17 +6,21 @@ import { object, string } from "yup";
 import { TextField, Button, Snackbar, SnackbarContent } from "@mui/material";
 
 import styled from "styled-components";
-import { orangeColor, whiteColor } from "../../../constants/colorPalette";
+import {
+  orangeColor,
+  whiteColor,
+  lightGreyColor,
+} from "../../../constants/colorPalette";
 
 const inputStyles = {
   "& .MuiInputLabel-root.Mui-focused": {
-    color: `${orangeColor}`,
+    color: `${lightGreyColor}`,
   },
   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: `${orangeColor}`,
+    borderColor: `${lightGreyColor}`,
   },
   "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: `${orangeColor}`,
+    borderColor: `${lightGreyColor}`,
   },
 };
 
@@ -134,10 +138,6 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  @media (max-width: 480px) {
-    align-items: center;
-  }
 `;
 
 const CustomSnackbarContent = styled(SnackbarContent)`
@@ -152,6 +152,7 @@ const CustomForm = styled(Form)`
 
   @media (max-width: 480px) {
     width: 100%;
+    align-items: center;
   }
 `;
 

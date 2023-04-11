@@ -36,21 +36,43 @@ const Sorting = ({ saveSelected, saveSelectedLabel, label }) => {
     }
   };
   return (
-    <CustomForm size="small">
-      <InputLabel>{label}</InputLabel>
-      <Select label={label}>
-        {sortingValues.map((value) => (
-          <MenuItem key={value} onClick={handleSelect}>
-            {value}
-          </MenuItem>
-        ))}
-      </Select>
-    </CustomForm>
+    <SortingContainer>
+      <SortingTitle>Sorting</SortingTitle>
+      <CustomForm size="small">
+        <InputLabel>{label}</InputLabel>
+        <Select label={label}>
+          {sortingValues.map((value) => (
+            <MenuItem key={value} onClick={handleSelect}>
+              {value}
+            </MenuItem>
+          ))}
+        </Select>
+      </CustomForm>
+    </SortingContainer>
   );
 };
 
 export default Sorting;
 
+const SortingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media (max-width: 480px) {
+    gap: 20px;
+  }
+`;
+
+const SortingTitle = styled.h4`
+  font-weight: 600;
+  text-transform: uppercase;
+`;
+
 const CustomForm = styled(FormControl)`
   width: 200px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;

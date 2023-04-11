@@ -72,4 +72,3 @@ const monobankApi = axios.create({
 export const getInvoice = (params) => {
   return monobankApi.post("api/merchant/invoice/create", params);
 };
-console.log(process.env);

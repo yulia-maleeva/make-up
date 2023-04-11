@@ -37,7 +37,6 @@ export default NavBar;
 
 const BurgerIcon = styled(MenuIcon)`
   cursor: pointer;
-
   @media (min-width: 769px) {
     display: none !important;
   }
@@ -55,14 +54,12 @@ const CustomLinksList = styled.nav`
   padding-top: 80px;
   background-color: ${whiteColor};
   transition: all 0.3s ease-in-out;
-
   & svg {
     position: absolute;
     top: 20px;
     right: 20px;
     cursor: pointer;
   }
-
   @media (min-width: 769px) {
     position: static;
     flex-direction: row;
@@ -70,7 +67,6 @@ const CustomLinksList = styled.nav`
     padding-top: 0;
     left: 0;
     width: auto;
-
     & svg {
       display: none;
     }
@@ -82,11 +78,9 @@ const CustomLink = styled(Link)`
   text-decoration: none;
   color: ${blackColor};
   margin: 20px;
-
   &:focus {
     outline: none;
   }
-
   &:hover {
     color: ${orangeColor};
   }
