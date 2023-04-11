@@ -28,27 +28,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   const cartProducts = useSelector((state) => state.cart.cart);
-
-  const getTotalPrice = () => {
-    let totalPrice = 0;
-    let totalQuantity = 0;
-
-    cartProducts.forEach((item) => {
-      totalQuantity += item.quantity;
-      totalPrice += totalQuantity * (item.price / 100);
-    });
-
-    return totalPrice;
-  };
-
-  const getProductSum = () => {
-    let productSum = 0;
-
-    cartProducts.forEach((item) => {
-      productSum += item.quantity * (item.price / 100);
-    });
-    return productSum;
-  };
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   return (
     <Layout>
@@ -76,7 +56,7 @@ const Checkout = () => {
                       </ProductDescription>
                       <PriceDescription>
                         {product.quantity} x {product.displayPrice} = $
-                        {getProductSum()}
+                        {product.quantity * (product.price / 100)}
                       </PriceDescription>
                       <Quantity>
                         <QuantityContainer>
@@ -105,10 +85,10 @@ const Checkout = () => {
             ) : (
               <ProductDescription>Your cart is empty</ProductDescription>
             )}
-            {getTotalPrice() > 0 && (
+            {totalPrice > 0 && (
               <Container>
                 <CartTitle>Total</CartTitle>
-                <CartTitle>${getTotalPrice()}</CartTitle>
+                <CartTitle>${totalPrice / 100}</CartTitle>
               </Container>
             )}
           </CartContainer>
