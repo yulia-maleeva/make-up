@@ -9,7 +9,7 @@ export default Logo;
 const CustomLogo = styled.img`
   width: 200px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 820px) {
     width: 150px;
   }
 `;

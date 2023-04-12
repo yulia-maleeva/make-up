@@ -7,6 +7,7 @@ import Text from "../../atoms/Text";
 import styled from "styled-components";
 
 const Offer = () => {
+  window.scroll(0, 0);
   return (
     <Layout>
       <OfferContainer>

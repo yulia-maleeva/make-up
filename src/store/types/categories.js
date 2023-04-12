@@ -1,0 +1,3 @@
+export const CATEGORIES_TYPES = {
+  SAVE_CATEGORIES: "SAVE_CATEGORIES",
+};
