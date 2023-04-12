@@ -21,6 +21,10 @@ const Footer = () => (
             Look no further.
           </LogoBlockDescription>
         </LogoBlock>
+        <QRCodeBlock>
+          <QRCodeTitle>Get the App</QRCodeTitle>
+          <QRCodeImage src="assets/images/qr.png" alt="QR-Code" />
+        </QRCodeBlock>
         <CustomerCare />
       </FooterInfoBlock>
       <Box>
@@ -97,4 +101,22 @@ const LogoBlockDescription = styled.p`
     font-size: 14px;
     text-align: center;
   }
+`;
+
+const QRCodeBlock = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+`;
+const QRCodeTitle = styled.p`
+  font-size: 26px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const QRCodeImage = styled.img`
+  width: 40%;
+  height: auto;
 `;
