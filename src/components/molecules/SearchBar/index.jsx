@@ -147,9 +147,9 @@ const CustomList = styled(List)`
     z-index: 10;
     top: 45px;
 
-    @media (max-width: 480px) {
+    @media (max-width: 769px) {
       width: 100%;
-      max-height: 150px;
+      max-height: 170px;
     }
   }
 `;

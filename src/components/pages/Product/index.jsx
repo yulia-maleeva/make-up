@@ -28,6 +28,8 @@ import {
 } from "../../../constants/colorPalette";
 
 const Product = () => {
+  window.scroll(0, 0);
+
   const { id } = useParams();
 
   const dispatch = useDispatch();

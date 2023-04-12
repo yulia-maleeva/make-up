@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Text = ({ children }) => <CustomText>{children}</CustomText>;
 
 Text.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node.isRequired,
 };
 
 export default Text;

@@ -23,11 +23,11 @@ const CustomFooterPanel = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 769px) {
+  @media (max-width: 820px) {
     gap: 50px;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 820px) {
     flex-direction: column;
     gap: 20px;
   }

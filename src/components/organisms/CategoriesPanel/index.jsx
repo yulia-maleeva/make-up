@@ -5,6 +5,9 @@ import ROUTES from "../../../constants/routes";
 
 import { getCategories } from "../../../api";
 
+import { useDispatch } from "react-redux";
+import { saveCategories } from "../../../store/actions/categories";
+
 import styled from "styled-components";
 import {
   blackColor,
@@ -13,6 +16,8 @@ import {
 } from "../../../constants/colorPalette";
 
 const CategoriesPanel = () => {
+  const dispatch = useDispatch();
+
   const [categories, setCategories] = useState(null);
 
   const getData = async () => {
@@ -28,6 +33,7 @@ const CategoriesPanel = () => {
     );
 
     setCategories(categoriesList);
+    dispatch(saveCategories(categoriesList));
   };
 
   useEffect(() => {
@@ -63,13 +69,14 @@ const CategoriesContainer = styled.div`
   background-color: ${orangeColor};
   color: ${whiteColor};
 
-  @media (max-width: 480px) {
+  @media (max-width: 821px) {
     display: none;
   }
 `;
 
 const CategoriesList = styled.ul`
   display: flex;
+  justify-content: center;
   gap: 40px;
 `;
 

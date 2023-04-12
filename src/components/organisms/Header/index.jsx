@@ -85,7 +85,7 @@ const CustomHeader = styled.header`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 769px) {
     height: 150px;
   }
 `;
@@ -97,10 +97,6 @@ const HeaderContainer = styled.div`
   align-items: center;
 
   @media (max-width: 769px) {
-    width: 90%;
-  }
-
-  @media (max-width: 480px) {
     display: none;
   }
 `;
@@ -112,7 +108,7 @@ const CustomIconCart = styled(ShoppingCartIcon)`
 const ResponsiveHeaderContainer = styled.div`
   display: none;
 
-  @media (max-width: 480px) {
+  @media (max-width: 769px) {
     width: 90%;
     display: flex;
     flex-direction: column;

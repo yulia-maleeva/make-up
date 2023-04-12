@@ -14,6 +14,7 @@ const StyledButton = ({ text, onClick }) => (
 
 StyledButton.propTypes = {
   text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default StyledButton;

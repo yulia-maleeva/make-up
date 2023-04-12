@@ -55,7 +55,7 @@ const FilterPanel = ({
       )}
       {filters.length > 0 &&
         filters.map((filter) => (
-          <FilterCategory>
+          <FilterCategory key={filter.name}>
             <FilterTitle>{filter.name}</FilterTitle>
             <FilterGroup>
               {filter.values.map((value) => (
