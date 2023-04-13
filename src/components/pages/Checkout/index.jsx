@@ -25,6 +25,8 @@ import {
 } from "../../../constants/colorPalette";
 
 const Checkout = () => {
+  window.scroll(0, 0);
+
   const dispatch = useDispatch();
 
   const cartProducts = useSelector((state) => state.cart.cart);

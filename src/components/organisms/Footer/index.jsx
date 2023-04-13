@@ -23,7 +23,7 @@ const Footer = () => (
         </LogoBlock>
         <QRCodeBlock>
           <QRCodeTitle>Get the App</QRCodeTitle>
-          <QRCodeImage src="assets/images/qr.png" alt="QR-Code" />
+          <QRCodeImage src="/assets/images/qr.png" alt="QR-Code" />
         </QRCodeBlock>
         <CustomerCare />
       </FooterInfoBlock>

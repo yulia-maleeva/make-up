@@ -11,8 +11,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import styled from "styled-components";
 
-const Accordion = ({ title, description }) => (
-  <MuiAccordion>
+const Accordion = ({ title, description, defaultExpanded }) => (
+  <MuiAccordion defaultExpanded={defaultExpanded}>
     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
       <AccordionTitle>{title}</AccordionTitle>
     </AccordionSummary>

@@ -1,9 +1,8 @@
 import React from "react";
 
-import { getInvoice } from "../../../api";
+import ROUTES from "../../../constants/routes";
 
-import { useDispatch } from "react-redux";
-import { clearCart } from "../../../store/actions/cart";
+import { getInvoice } from "../../../api";
 
 import { useSelector } from "react-redux";
 
@@ -32,8 +31,6 @@ const inputStyles = {
 };
 
 const CheckoutForm = () => {
-  const dispatch = useDispatch();
-
   const cartProducts = useSelector((state) => state.cart.cart);
 
   const getMonobankResponse = async () => {
@@ -66,7 +63,7 @@ const CheckoutForm = () => {
         destination: "MAKEUP",
         basketOrder,
       },
-      redirectUrl: `${window.location.origin}/`,
+      redirectUrl: `${window.location.origin}${ROUTES.THANK_YOU}`,
       validity: 3600,
       paymentType: "debit",
     });
@@ -80,7 +77,6 @@ const CheckoutForm = () => {
       onSubmit={(formikHelpers) => {
         getMonobankResponse();
         formikHelpers.resetForm();
-        dispatch(clearCart());
       }}
       validationSchema={object({
         name: string().required("Please enter your name").min(3, "Too short"),
