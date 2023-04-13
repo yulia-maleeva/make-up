@@ -44,13 +44,11 @@ const NavBar = () => {
       <BurgerIcon onClick={toggleMenu} />
       <CustomLinksList open={menuOpen}>
         <CloseIcon onClick={toggleMenu} />
-
         <CustomDesktopList>
           <CustomLink to={ROUTES.PRODUCTS}>Products</CustomLink>
           <CustomLink to={ROUTES.ABOUT}>About</CustomLink>
           <CustomLink to={ROUTES.CONTACTS}>Contacts</CustomLink>
         </CustomDesktopList>
-
         <CustomResponsiveList component="nav">
           <ListItemButton onClick={handleClick}>
             <CustomLink>Products</CustomLink>

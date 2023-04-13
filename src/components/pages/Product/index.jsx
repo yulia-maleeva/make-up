@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 
-import { Link } from "react-router-dom";
-import ROUTES from "../../../constants/routes";
+import { useNavigate } from "react-router-dom";
 
 import { getProduct } from "../../../api";
 
@@ -17,8 +16,8 @@ import Rating from "@mui/material/Rating";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { useDispatch } from "react-redux";
-import { addItem } from "../../../store/actions/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, toggleCart } from "../../../store/actions/cart";
 
 import styled from "styled-components";
 import {
@@ -33,6 +32,7 @@ const Product = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
 
@@ -72,6 +72,11 @@ const Product = () => {
       quantity: 1,
     };
     dispatch(addItem(item));
+    dispatch(toggleCart(true));
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -84,7 +89,7 @@ const Product = () => {
       {error && <Error />}
       {product && (
         <ProductContainer>
-          <BackLink to={ROUTES.PRODUCTS}>
+          <BackLink onClick={goBack}>
             <ArrowBackIcon />
             Back
           </BackLink>
@@ -114,9 +119,18 @@ const Product = () => {
             <Accordion
               title="How to use"
               description={product?.["how-to-text"]}
+              defaultExpanded={true}
             />
-            <Accordion title="Ingredients" description={product?.ingredients} />
-            <Accordion title="Benefits" description={product?.benefits} />
+            <Accordion
+              title="Ingredients"
+              description={product?.ingredients}
+              defaultExpanded={false}
+            />
+            <Accordion
+              title="Benefits"
+              description={product?.benefits}
+              defaultExpanded={false}
+            />
           </ProductAdditionalInfoContainer>
         </ProductContainer>
       )}
@@ -191,14 +205,8 @@ const ProductDescription = styled.p`
 `;
 
 const ProductPrice = styled.div`
-  width: 100px;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 500;
-  padding: 10px;
-  text-align: center;
-  background-color: ${orangeColor};
-  color: #ffffff;
-  border-radius: 4px;
 `;
 
 const ProductAdditionalInfoContainer = styled.div`
@@ -207,14 +215,15 @@ const ProductAdditionalInfoContainer = styled.div`
   gap: 25px;
 `;
 
-const BackLink = styled(Link)`
+const BackLink = styled.button`
   width: fit-content;
   display: flex;
   gap: 10px;
-  text-decoration: none;
   font-size: 24px;
   display: flex;
   color: ${blackColor};
+  border: none;
+  background-color: transparent;
 
   &:hover {
     color: ${orangeColor};

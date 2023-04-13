@@ -13,6 +13,7 @@ import FAQ from "./components/pages/FAQ";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import Offer from "./components/pages/Offer";
 import Checkout from "./components/pages/Checkout";
+import ThankYou from "./components/pages/ThankYou";
 import NotFound from "./components/pages/NotFound";
 
 const App = () => (
@@ -32,6 +33,7 @@ const App = () => (
       <Route path={ROUTES.PRIVACY_POLICY} element={<PrivacyPolicy />} />
       <Route path={ROUTES.OFFER} element={<Offer />} />
       <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
+      <Route path={ROUTES.THANK_YOU} element={<ThankYou />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>

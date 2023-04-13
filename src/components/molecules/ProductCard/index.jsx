@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { useDispatch } from "react-redux";
-import { addItem } from "../../../store/actions/cart";
+import { addItem, toggleCart } from "../../../store/actions/cart";
 
 import { Link } from "react-router-dom";
 import ROUTES from "../../../constants/routes/index.js";
@@ -35,6 +35,7 @@ const ProductCard = ({ id, name, image, price, showenPrice }) => {
       quantity: 1,
     };
     dispatch(addItem(item));
+    dispatch(toggleCart(true));
   };
 
   return (

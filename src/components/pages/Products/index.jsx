@@ -29,7 +29,7 @@ const Products = () => {
   const [filters, setFilters] = useState([]);
 
   const [checkedBrand, setCheckedBrand] = useState("");
-  const [checkedFilter, setCheckedFilter] = useState("");
+  const [checkedFilters, setCheckedFilters] = useState([]);
 
   const [selected, setSelected] = useState("rating");
   const [selectedLabel, setSelectedLabel] = useState("Rating");
@@ -94,7 +94,7 @@ const Products = () => {
     const productsData = await getProducts({
       root_category: slug,
       brand: checkedBrand,
-      filter_type: checkedFilter,
+      filter_type: checkedFilters.join(","),
       number: currentPage,
       size: 30,
       country: "SG",
@@ -123,11 +123,24 @@ const Products = () => {
   const saveCheckedBrand = (brand) => {
     setCheckedBrand(brand);
     setCurrentPage(1);
+    window.scroll(0, 0);
   };
 
-  const saveCheckedFilter = (filter) => {
-    setCheckedFilter(`${filter.type}_${filter.value}`);
+  const saveCheckedFilters = (key, value, checked) => {
+    let filter = [...checkedFilters];
+
+    if (checked) {
+      if (!filter.find((item) => item === `${key}_${value}`)) {
+        filter.unshift(`${key}_${value}`);
+      }
+    } else {
+      filter = filter.filter((item) => item !== `${key}_${value}`);
+    }
+
+    console.log(filter);
+    setCheckedFilters(filter);
     setCurrentPage(1);
+    window.scroll(0, 0);
   };
 
   const saveSelected = (selected) => {
@@ -142,45 +155,50 @@ const Products = () => {
   useEffect(() => {
     getFiltersData();
     getProductsData();
-  }, [checkedBrand, checkedFilter, selected, currentPage, slug]);
+  }, [checkedBrand, checkedFilters, selected, currentPage, slug]);
 
   return (
     <Layout>
-      {loading && <Preloader />}
-      {error && <Error title="Error!" description="No avaible data!" />}{" "}
-      {products.length > 0 && (
-        <MainWrapper>
-          <ProductsContainer>
-            <FilterPanel
-              brands={brands}
-              saveCheckedBrand={saveCheckedBrand}
-              filters={filters}
-              saveCheckedFilter={saveCheckedFilter}
-              checkedBrand={checkedBrand}
-              checkedFilter={checkedFilter}
-            />
-            <ProductsWrapper>
-              <Sorting
-                saveSelected={saveSelected}
-                saveSelectedLabel={saveSelectedLabel}
-                label={selectedLabel}
-              />
-              <CardsContainer data={products} />
-            </ProductsWrapper>
-          </ProductsContainer>
-          <CustomPagination
-            count={totalPages}
-            page={currentPage}
-            onChange={changePage}
-            siblingCount={0}
-            boundaryCount={0}
-            showFirstButton
-            showLastButton
-            variant="outlined"
-            shape="rounded"
+      <MainWrapper>
+        <ProductsContainer>
+          <FilterPanel
+            brands={brands}
+            saveCheckedBrand={saveCheckedBrand}
+            filters={filters}
+            saveCheckedFilters={saveCheckedFilters}
+            checkedBrand={checkedBrand}
+            checkedFilters={checkedFilters}
           />
-        </MainWrapper>
-      )}
+          <ProductsWrapper>
+            {loading ? (
+              <Preloader />
+            ) : (
+              <>
+                <Sorting
+                  saveSelected={saveSelected}
+                  saveSelectedLabel={saveSelectedLabel}
+                  label={selectedLabel}
+                />
+                <CardsContainer data={products} />
+                {(error || !products.length) && (
+                  <Error title="Error!" description="No avaible data!" />
+                )}
+                <CustomPagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={changePage}
+                  siblingCount={0}
+                  boundaryCount={0}
+                  showFirstButton
+                  showLastButton
+                  variant="outlined"
+                  shape="rounded"
+                />
+              </>
+            )}
+          </ProductsWrapper>
+        </ProductsContainer>
+      </MainWrapper>
     </Layout>
   );
 };
@@ -202,17 +220,28 @@ const MainWrapper = styled.div`
 `;
 
 const ProductsContainer = styled.div`
+  width: 100%;
   display: flex;
   gap: 50px;
+
+  @media (max-width: 821px) {
+    flex-direction: column;
+    gap: 25px;
+  }
 `;
 
 const ProductsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  flex: 1;
+  align-items: center;
 `;
 
 const CustomPagination = styled(Pagination)`
+  margin-top: auto;
+  margin-bottom: 0;
+
   & .MuiPaginationItem-root:hover,
   & .Mui-selected {
     background-color: ${orangeColor} !important;

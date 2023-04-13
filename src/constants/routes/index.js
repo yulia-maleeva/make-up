@@ -10,6 +10,7 @@ const ROUTES = {
   PRIVACY_POLICY: "/privacy-policy",
   OFFER: "/offer",
   CHECKOUT: "/checkout",
+  THANK_YOU: "/thank-you",
 };
 
 export default ROUTES;

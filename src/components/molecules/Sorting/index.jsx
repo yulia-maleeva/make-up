@@ -3,6 +3,7 @@ import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 import styled from "styled-components";
+import { orangeColor, whiteColor } from "../../../constants/colorPalette";
 
 const Sorting = ({ saveSelected, saveSelectedLabel, label }) => {
   const sortingValues = [
@@ -42,9 +43,9 @@ const Sorting = ({ saveSelected, saveSelectedLabel, label }) => {
         <InputLabel>{label}</InputLabel>
         <Select label={label}>
           {sortingValues.map((value) => (
-            <MenuItem key={value} onClick={handleSelect}>
+            <CustomMenuItem key={value} onClick={handleSelect}>
               {value}
-            </MenuItem>
+            </CustomMenuItem>
           ))}
         </Select>
       </CustomForm>
@@ -55,11 +56,13 @@ const Sorting = ({ saveSelected, saveSelectedLabel, label }) => {
 export default Sorting;
 
 const SortingContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-self: flex-start;
 
-  @media (max-width: 480px) {
+  @media (max-width: 821px) {
     gap: 20px;
   }
 `;
@@ -72,7 +75,26 @@ const SortingTitle = styled.h4`
 const CustomForm = styled(FormControl)`
   width: 200px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 821px) {
     width: 100%;
+  }
+
+  & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: ${orangeColor} !important;
+  }
+
+  .Mui-focused {
+    color: ${orangeColor} !important;
+  }
+`;
+
+const CustomMenuItem = styled(MenuItem)`
+  && {
+    background-color: ${whiteColor} !important;
+
+    &:hover {
+      background-color: ${orangeColor} !important;
+      color: ${whiteColor};
+    }
   }
 `;

@@ -8,6 +8,8 @@ import { getCategories } from "../../../api";
 import { useDispatch } from "react-redux";
 import { saveCategories } from "../../../store/actions/categories";
 
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 import {
   blackColor,
@@ -19,6 +21,8 @@ const CategoriesPanel = () => {
   const dispatch = useDispatch();
 
   const [categories, setCategories] = useState(null);
+
+  const categoriesInRedux = useSelector((state) => state.categories.categories);
 
   const getData = async () => {
     const data = await getCategories({
@@ -37,7 +41,11 @@ const CategoriesPanel = () => {
   };
 
   useEffect(() => {
-    getData();
+    if (!categoriesInRedux.length) {
+      getData();
+    } else {
+      setCategories(categoriesInRedux);
+    }
   }, []);
 
   return (
