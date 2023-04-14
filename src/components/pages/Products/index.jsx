@@ -88,31 +88,34 @@ const Products = () => {
   };
 
   const getProductsData = async () => {
-    setProducts([]);
-    setLoading(true);
+    try {
+      setProducts([]);
+      setLoading(true);
 
-    const productsData = await getProducts({
-      root_category: slug,
-      brand: checkedBrand,
-      filter_type: checkedFilters.join(","),
-      number: currentPage,
-      size: 30,
-      country: "SG",
-      language: "en-SG",
-      sort: selected,
-    }).catch(() => {
+      const productsData = await getProducts({
+        root_category: slug,
+        brand: checkedBrand,
+        filter_type: checkedFilters.join(","),
+        number: currentPage,
+        size: 30,
+        country: "SG",
+        language: "en-SG",
+        sort: selected,
+      });
+
+      setLoading(false);
+
+      const updatedProductsData = productsData.data;
+
+      const productList = updatedProductsData.data;
+      setProducts(productList);
+
+      const paginationData = updatedProductsData.meta;
+      setTotalPages(paginationData["total-pages"]);
+    } catch (error) {
       setLoading(false);
       setError(true);
-    });
-
-    const updatedProductsData = productsData.data;
-    setLoading(false);
-
-    const productList = updatedProductsData.data;
-    setProducts(productList);
-
-    const paginationData = updatedProductsData.meta;
-    setTotalPages(paginationData["total-pages"]);
+    }
   };
 
   const changePage = (e, p) => {
@@ -122,6 +125,7 @@ const Products = () => {
 
   const saveCheckedBrand = (brand) => {
     setCheckedBrand(brand);
+    setCheckedFilters([]);
     setCurrentPage(1);
     window.scroll(0, 0);
   };
@@ -137,7 +141,6 @@ const Products = () => {
       filter = filter.filter((item) => item !== `${key}_${value}`);
     }
 
-    console.log(filter);
     setCheckedFilters(filter);
     setCurrentPage(1);
     window.scroll(0, 0);

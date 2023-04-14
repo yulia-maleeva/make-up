@@ -49,6 +49,7 @@ const NavBar = () => {
           <CustomLink to={ROUTES.ABOUT}>About</CustomLink>
           <CustomLink to={ROUTES.CONTACTS}>Contacts</CustomLink>
         </CustomDesktopList>
+
         <CustomResponsiveList component="nav">
           <ListItemButton onClick={handleClick}>
             <CustomLink>Products</CustomLink>
@@ -101,7 +102,7 @@ const CustomLinksList = styled.nav`
   position: fixed;
   top: 0;
   left: ${({ open }) => (open ? "0" : "-100%")};
-  z-index: 100;
+  z-index: 9999;
   padding-top: 80px;
   background-color: ${whiteColor};
   transition: all 0.3s ease-in-out;
@@ -118,6 +119,7 @@ const CustomLinksList = styled.nav`
     flex-direction: row;
     height: auto;
     padding-top: 0;
+    z-index: 99;
     left: 0;
     width: auto;
     & svg {

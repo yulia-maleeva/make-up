@@ -8,6 +8,7 @@ import NavBar from "../../molecules/NavBar";
 import SearchBar from "../../molecules/SearchBar";
 
 import Badge from "@mui/material/Badge";
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +28,7 @@ const Header = () => {
     localStorage.setItem("price", JSON.stringify(totalPrice));
   }, [cartProducts, totalPrice]);
 
-  const ProductsQuantity = cartProducts.reduce(
+  const productsQuantity = cartProducts.reduce(
     (acc, product) => acc + product.quantity,
     0
   );
@@ -41,7 +42,7 @@ const Header = () => {
         <NavBar />
         <SearchBar />
         <Badge
-          badgeContent={ProductsQuantity}
+          badgeContent={productsQuantity}
           sx={{
             "& .MuiBadge-badge": {
               color: `${whiteColor}`,
@@ -59,7 +60,7 @@ const Header = () => {
             <Logo />
           </Link>
           <Badge
-            badgeContent={ProductsQuantity}
+            badgeContent={productsQuantity}
             sx={{
               "& .MuiBadge-badge": {
                 color: `${whiteColor}`,

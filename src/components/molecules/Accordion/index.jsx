@@ -22,9 +22,14 @@ const Accordion = ({ title, description, defaultExpanded }) => (
   </MuiAccordion>
 );
 
+Accordion.defaultProps = {
+  defaultExpanded: false,
+};
+
 Accordion.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  defaultExpanded: PropTypes.bool,
 };
 
 export default Accordion;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -98,6 +99,33 @@ const FilterPanel = ({
   );
 };
 
+FilterPanel.propTypes = {
+  brands: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      attributes: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+    })
+  ),
+  saveCheckedBrand: PropTypes.func.isRequired,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      values: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          value: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    })
+  ),
+  saveCheckedFilters: PropTypes.func.isRequired,
+  checkedBrand: PropTypes.string.isRequired,
+  checkedFilters: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
+
 export default FilterPanel;
 
 const FilterContainer = styled.div`
@@ -114,7 +142,7 @@ const FilterContainer = styled.div`
     top: 0;
     left: ${({ open }) => (open ? "0" : "-100%")};
     bottom: 0;
-    z-index: 100;
+    z-index: 9999;
     padding: 20px;
     background-color: ${whiteColor};
     transition: all 0.3s ease-in-out;
