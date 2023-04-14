@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import FiltersPreloader from "../../molecules/FiltersPreloader";
+
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -17,6 +19,7 @@ const FilterPanel = ({
   saveCheckedFilters,
   checkedBrand,
   checkedFilters,
+  skeleton,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -40,31 +43,37 @@ const FilterPanel = ({
       </FiltersMenu>
       <FilterContainer open={open}>
         <CustomCloseIcon onClick={handleClick} />
+
+        {skeleton && <FiltersPreloader />}
+
         {brands.length > 0 && (
-          <FilterCategory>
-            <FilterTitle>Brands</FilterTitle>
-            <FilterGroup>
-              {brands.map((brand) => (
-                <FormControlLabel
-                  key={brand.attributes.name}
-                  control={
-                    <Checkbox
-                      checked={checkedBrand === brand.id}
-                      id={brand.id}
-                      onChange={handleCheckBrand}
-                      sx={{
-                        "&.Mui-checked": {
-                          color: `${orangeColor}`,
-                        },
-                      }}
-                    />
-                  }
-                  label={brand.attributes.name}
-                />
-              ))}
-            </FilterGroup>
-          </FilterCategory>
+          <>
+            <FilterCategory>
+              <FilterTitle>Brands</FilterTitle>
+              <FilterGroup>
+                {brands.map((brand) => (
+                  <FormControlLabel
+                    key={brand.attributes.name}
+                    control={
+                      <Checkbox
+                        checked={checkedBrand === brand.id}
+                        id={brand.id}
+                        onChange={handleCheckBrand}
+                        sx={{
+                          "&.Mui-checked": {
+                            color: `${orangeColor}`,
+                          },
+                        }}
+                      />
+                    }
+                    label={brand.attributes.name}
+                  />
+                ))}
+              </FilterGroup>
+            </FilterCategory>
+          </>
         )}
+
         {filters.length > 0 &&
           filters.map((filter) => (
             <FilterCategory key={filter.name}>
