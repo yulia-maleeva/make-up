@@ -72,55 +72,67 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-      <TextField
-        type="search"
-        placeholder="Search"
-        variant="outlined"
-        size="small"
-        fullWidth
-        onInput={handleInput}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <>
-              {loading && (
-                <InputAdornment position="end">
-                  <RotatingIcon />
-                </InputAdornment>
-              )}
-            </>
-          ),
+      <SearchMask
+        onClick={() => {
+          setIsActive(false);
         }}
-        sx={{
-          "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: `${orangeColor}`,
-          },
-          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-            {
+        className={isActive ? "active" : ""}
+      />
+      <SearchSubContainer>
+        <TextField
+          type="search"
+          placeholder="Search"
+          variant="outlined"
+          size="small"
+          fullWidth
+          onInput={handleInput}
+          onClick={() => {
+            setIsActive(true);
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <>
+                {loading && (
+                  <InputAdornment position="end">
+                    <RotatingIcon />
+                  </InputAdornment>
+                )}
+              </>
+            ),
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
               borderColor: `${orangeColor}`,
             },
-        }}
-      />
-      <CustomList className={isActive ? "active" : ""}>
-        {products &&
-          products.map((product) => (
-            <ListItemButton key={product.id}>
-              <CustomLink to={`${ROUTES.PRODUCT}${product.id}`}>
-                <Avatar
-                  src={product.attributes["cart-image-urls"][0]}
-                  alt={product.attributes.name}
-                  variant="rounded"
-                  sx={{ width: 25, height: 25 }}
-                />
-                <ProductName>{product.attributes.name}</ProductName>
-              </CustomLink>
-            </ListItemButton>
-          ))}
-      </CustomList>
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: `${orangeColor}`,
+              },
+          }}
+        />
+        {!!products.length && (
+          <CustomList className={isActive ? "active" : ""}>
+            {products.map((product) => (
+              <CustomListItemButton key={product.id}>
+                <CustomLink to={`${ROUTES.PRODUCT}${product.id}`}>
+                  <Avatar
+                    src={product.attributes["cart-image-urls"][0]}
+                    alt={product.attributes.name}
+                    variant="rounded"
+                    sx={{ width: 25, height: 25 }}
+                  />
+                  <ProductName>{product.attributes.name}</ProductName>
+                </CustomLink>
+              </CustomListItemButton>
+            ))}
+          </CustomList>
+        )}
+      </SearchSubContainer>
     </SearchBarContainer>
   );
 };
@@ -129,6 +141,33 @@ export default SearchBar;
 
 const SearchBarContainer = styled.div`
   position: relative;
+  width: 242px;
+
+  @media (max-width: 769px) {
+    width: 100%;
+  }
+`;
+
+const SearchSubContainer = styled.div`
+  z-index: 999;
+  position: relative;
+  background-color: white;
+  border-radius: 4px;
+`;
+
+const SearchMask = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+
+  &.active {
+    display: block;
+  }
 `;
 
 const CustomList = styled(List)`
@@ -136,7 +175,7 @@ const CustomList = styled(List)`
 
   &.active {
     width: 242px;
-    max-height: 230px;
+    max-height: 380px;
     display: flex;
     flex-direction: column;
     background-color: ${whiteColor};
@@ -147,9 +186,12 @@ const CustomList = styled(List)`
     z-index: 10;
     top: 45px;
 
+    @media (max-width: 480px) {
+      max-height: 440px;
+    }
+
     @media (max-width: 769px) {
       width: 100%;
-      max-height: 170px;
     }
   }
 `;
@@ -162,11 +204,11 @@ const CustomLink = styled(Link)`
 `;
 
 const ProductName = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   color: ${blackColor};
 
   @media (max-width: 480px) {
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 
@@ -181,4 +223,8 @@ const RotatingIcon = styled(AutorenewIcon)`
       transform: rotate(360deg);
     }
   }
+`;
+
+const CustomListItemButton = styled(ListItemButton)`
+  min-height: 60px;
 `;

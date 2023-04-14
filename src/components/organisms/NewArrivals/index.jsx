@@ -14,28 +14,28 @@ const NewArrivals = () => (
         name="Cheek Stain (Limited Edition)"
         image="/assets/images/products/Tarte-Cheek-Stain-Limited-Edition.webp"
         price={4800}
-        showenPrice="48"
+        shownPrice="48"
       />
       <ProductCard
         id="12821"
         name="Glowstarter Mega Illuminating Moisturizer"
         image="/assets/images/products/Glamglow-Glowstarter-Mega-illuminating-Moisturizer.webp"
         price={7600}
-        showenPrice="76"
+        shownPrice="76"
       />
       <ProductCard
         id="31323"
         name="Liquid Touch Weightless Foundation"
         image="/assets/images/products/Rare-Beauty-Liquid-Touch-Weightless-Foundation.webp"
         price={5200}
-        showenPrice="52"
+        shownPrice="52"
       />
       <ProductCard
         id="41365"
         name="GrandeBROW Brow Enhancing Serum"
         image="/assets/images/products/Grande-Cosmetics-GrandeBROW-Brow-Enhancing-Serum.webp"
         price={11700}
-        showenPrice="117"
+        shownPrice="117"
       />
     </CardsContainer>
   </CardsSection>

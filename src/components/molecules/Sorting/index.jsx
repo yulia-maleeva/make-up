@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
@@ -51,6 +52,12 @@ const Sorting = ({ saveSelected, saveSelectedLabel, label }) => {
       </CustomForm>
     </SortingContainer>
   );
+};
+
+Sorting.propTypes = {
+  saveSelected: PropTypes.func.isRequired,
+  saveSelectedLabel: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default Sorting;

@@ -45,7 +45,7 @@ const Checkout = () => {
             {cartProducts.length > 0 ? (
               <CartItems>
                 {cartProducts.map((product) => (
-                  <CartItem>
+                  <CartItem key={product.name}>
                     <Avatar
                       src={product.image}
                       alt={product.name}

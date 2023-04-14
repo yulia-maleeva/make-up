@@ -16,7 +16,7 @@ import Rating from "@mui/material/Rating";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem, toggleCart } from "../../../store/actions/cart";
 
 import styled from "styled-components";
@@ -42,24 +42,26 @@ const Product = () => {
   const [productId, setProductId] = useState("");
 
   const getData = async () => {
-    setProduct(null);
-    setLoading(true);
+    try {
+      setProduct(null);
+      setLoading(true);
 
-    const data = await getProduct({
-      id: id,
-      country: "SG",
-      language: "en-SG",
-    }).catch(() => {
+      const data = await getProduct({
+        id: id,
+        country: "SG",
+        language: "en-SG",
+      });
+
+      setLoading(false);
+
+      const productAttributes = data.data.data.attributes;
+      setProduct(productAttributes);
+
+      setProductId(data.data.data.id);
+    } catch (error) {
       setLoading(false);
       setError(true);
-    });
-
-    setLoading(false);
-
-    const productAttributes = data.data.data.attributes;
-    setProduct(productAttributes);
-
-    setProductId(data.data.data.id);
+    }
   };
 
   const addItemToCart = () => {

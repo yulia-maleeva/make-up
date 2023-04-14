@@ -7,13 +7,9 @@ import { addItem, toggleCart } from "../../../store/actions/cart";
 import { Link } from "react-router-dom";
 import ROUTES from "../../../constants/routes/index.js";
 
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardActionArea,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import styled from "styled-components";
 import {
@@ -22,16 +18,16 @@ import {
   whiteColor,
 } from "../../../constants/colorPalette/index.js";
 
-const ProductCard = ({ id, name, image, price, showenPrice }) => {
+const ProductCard = ({ id, name, image, price, shownPrice }) => {
   const dispatch = useDispatch();
 
   const addItemToCart = () => {
     const item = {
-      id: id,
-      image: image,
-      name: name,
-      price: price,
-      displayPrice: `$${showenPrice}`,
+      id,
+      image,
+      name,
+      price,
+      displayPrice: `$${shownPrice}`,
       quantity: 1,
     };
     dispatch(addItem(item));
@@ -41,26 +37,25 @@ const ProductCard = ({ id, name, image, price, showenPrice }) => {
   return (
     <CustomLink to={`${ROUTES.PRODUCT}${id}`}>
       <CustomCard variant="outlined" sx={{ width: "100%", height: "100%" }}>
-        <CardContainer>
-          <CustomButton
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addItemToCart();
-            }}
-          >
-            Add to bag
-          </CustomButton>
-          <CardMedia component="img" image={image} alt={name} />
-          <CardInfo>
-            <Title variant="button" component="h3">
-              {name}
-            </Title>
-            <Text variant="body2" component="p">
-              ${showenPrice}
-            </Text>
-          </CardInfo>
-        </CardContainer>
+        <CustomButton
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addItemToCart();
+          }}
+        >
+          <ShoppingCartIcon fontSize="small" />
+          Add to cart
+        </CustomButton>
+        <CardMedia component="img" image={image} alt={name} />
+        <CardInfo>
+          <Title variant="button" component="h3">
+            {name}
+          </Title>
+          <Text variant="body2" component="p">
+            ${shownPrice}
+          </Text>
+        </CardInfo>
       </CustomCard>
     </CustomLink>
   );
@@ -70,6 +65,8 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  shownPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
 };
 
 export default ProductCard;
@@ -78,10 +75,6 @@ const CustomCard = styled(Card)`
   &:hover {
     border: 1px solid ${orangeColor} !important;
   }
-`;
-
-const CardContainer = styled(CardActionArea)`
-  height: 100%;
 `;
 
 const CardInfo = styled(CardContent)`
@@ -100,9 +93,14 @@ const Text = styled(Typography)`
 
 const CustomLink = styled(Link)`
   text-decoration: none;
+  position: relative;
 `;
 
 const CustomButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   font-family: "Jost";
   font-size: 12px;
   position: absolute;

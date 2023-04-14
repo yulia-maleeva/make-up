@@ -2,7 +2,7 @@ import React from "react";
 
 import Layout from "../Layout";
 
-import Swiper from "../../organisms/Swiper";
+import Slider from "../../organisms/Slider";
 import Services from "../../organisms/Services";
 import Bestsellers from "../../organisms/Bestsellers";
 import NewArrivals from "../../organisms/NewArrivals";
@@ -10,7 +10,7 @@ import NewArrivals from "../../organisms/NewArrivals";
 const Home = () => {
   return (
     <Layout>
-      <Swiper />
+      <Slider />
       <NewArrivals />
       <Bestsellers />
       <Services />

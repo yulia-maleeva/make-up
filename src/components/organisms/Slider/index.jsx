@@ -17,35 +17,35 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
-export default () => {
-  return (
-    <SwiperSection>
-       <Swiper
-        slidesPerView={1}
-        loop={true}
-        modules={[Navigation, Scrollbar]}
-        navigation
-        scrollbar={{ draggable: true }}
-      >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.image}>
-            <Slide
-              style={{
-                backgroundImage: `url(${slide.image})`,
-              }}
-            />
-            <MottoContainer>
-              <Motto>{slide.motto}</Motto>
-              <CustomLink to={ROUTES.PRODUCTS}>
-                <StyledButton text="Shop" />
-              </CustomLink>
-            </MottoContainer>
-          </SwiperSlide>
-        ))}
-      </Swiper> 
-    </SwiperSection>
-  );
-};
+const Slider = () => (
+  <SwiperSection>
+    <Swiper
+      slidesPerView={1}
+      loop={true}
+      modules={[Navigation, Scrollbar]}
+      navigation
+      scrollbar={{ draggable: true }}
+    >
+      {slides.map((slide) => (
+        <SwiperSlide key={slide.image}>
+          <Slide
+            style={{
+              backgroundImage: `url(${slide.image})`,
+            }}
+          />
+          <MottoContainer>
+            <Motto>{slide.motto}</Motto>
+            <CustomLink to={ROUTES.PRODUCTS}>
+              <StyledButton text="Shop" />
+            </CustomLink>
+          </MottoContainer>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </SwiperSection>
+);
+
+export default Slider;
 
 const SwiperSection = styled.section`
   width: 80%;

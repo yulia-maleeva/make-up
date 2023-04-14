@@ -20,24 +20,27 @@ import {
 const CategoriesPanel = () => {
   const dispatch = useDispatch();
 
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const categoriesInRedux = useSelector((state) => state.categories.categories);
 
   const getData = async () => {
-    const data = await getCategories({
-      country: "SG",
-      language: "en-SG",
-    });
+    try {
+      const data = await getCategories({
+        country: "SG",
+        language: "en-SG",
+      });
 
-    const updatedData = data.data;
+      const updatedData = data.data;
+      const categoriesList = updatedData.data.filter(
+        (item) => item.attributes["top-level"] === true
+      );
 
-    const categoriesList = updatedData.data.filter(
-      (item) => item.attributes["top-level"] === true
-    );
-
-    setCategories(categoriesList);
-    dispatch(saveCategories(categoriesList));
+      setCategories(categoriesList);
+      dispatch(saveCategories(categoriesList));
+    } catch (error) {
+      setCategories([]);
+    }
   };
 
   useEffect(() => {
@@ -49,7 +52,7 @@ const CategoriesPanel = () => {
   }, []);
 
   return (
-    categories && (
+    categories.length > 0 && (
       <CategoriesContainer>
         <CategoriesList>
           {categories.map((category) => (

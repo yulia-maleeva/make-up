@@ -44,7 +44,7 @@ const Cart = () => {
         {cartProducts.length > 0 ? (
           <CartItems>
             {cartProducts.map((product) => (
-              <CartItem>
+              <CartItem key={product.name}>
                 <MainInfo>
                   <Avatar
                     src={product.image}
@@ -118,7 +118,7 @@ const CartContainer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 200;
+  z-index: 9999;
   background-color: ${whiteColor};
   border-left: 1px solid ${lightGreyColor};
 
