@@ -34,8 +34,8 @@ const FilterPanel = ({
 
   return (
     <>
-      <FiltersMenu>
-        <CustomFilterIcon onClick={handleClick} />
+      <FiltersMenu onClick={handleClick}>
+        <CustomFilterIcon />
         <FilterMenuTitle>Filters</FilterMenuTitle>
       </FiltersMenu>
       <FilterContainer open={open}>
@@ -170,14 +170,12 @@ const FilterGroup = styled.div`
 `;
 
 const CustomFilterIcon = styled(FilterListIcon)`
-  cursor: pointer;
   background-color: ${orangeColor};
   border-radius: 4px;
   color: ${whiteColor};
 `;
 
 const CustomCloseIcon = styled(CloseIcon)`
-  cursor: pointer;
   align-self: end;
 
   @media (min-width: 821px) {
@@ -193,6 +191,7 @@ const FiltersMenu = styled.div`
     justify-content: end;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
   }
 `;
 

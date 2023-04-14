@@ -34,7 +34,6 @@ const SearchBar = () => {
 
     const data = await getProducts({
       query: value,
-      size: 30,
       country: "SG",
       language: "en-SG",
     });

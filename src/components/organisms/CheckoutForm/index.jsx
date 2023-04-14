@@ -32,6 +32,7 @@ const inputStyles = {
 
 const CheckoutForm = () => {
   const cartProducts = useSelector((state) => state.cart.cart);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   const getMonobankResponse = async () => {
     const basketOrder = cartProducts.map((product) => {
@@ -44,19 +45,8 @@ const CheckoutForm = () => {
       };
     });
 
-    const calcTotalSum = () => {
-      let totalSum = 0;
-
-      cartProducts.map((product) => {
-        const productSum = product.price * product.quantity;
-        totalSum += productSum;
-      });
-
-      return totalSum;
-    };
-
     const response = await getInvoice({
-      amount: calcTotalSum(),
+      amount: totalPrice,
       ccy: 840,
       merchantPaymInfo: {
         reference: "84d0070ee4e44667b31371d8f8813947",
@@ -159,7 +149,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 769px) {
     align-items: center;
   }
 `;
@@ -169,7 +159,7 @@ const CustomForm = styled(Form)`
   flex-direction: column;
   gap: 20px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 769px) {
     width: 100%;
     align-items: center;
   }
