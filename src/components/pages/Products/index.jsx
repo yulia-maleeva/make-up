@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { getFilters, getProducts } from "../../../api";
 
@@ -23,7 +23,12 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("page") ? parseInt(searchParams.get("page")) : 1
+  );
 
   const [brands, setBrands] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -158,7 +163,11 @@ const Products = () => {
   useEffect(() => {
     getFiltersData();
     getProductsData();
+
+    setSearchParams(new URLSearchParams({ page: currentPage }));
   }, [checkedBrand, checkedFilters, selected, currentPage, slug]);
+
+  console.log("current", currentPage);
 
   return (
     <Layout>
@@ -189,9 +198,9 @@ const Products = () => {
                 <CustomPagination
                   count={totalPages}
                   page={currentPage}
-                  onChange={changePage}
                   siblingCount={0}
                   boundaryCount={0}
+                  onChange={changePage}
                   showFirstButton
                   showLastButton
                   variant="outlined"

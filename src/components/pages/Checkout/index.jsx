@@ -114,9 +114,6 @@ const CheckoutWrapper = styled.div`
     width: 90%;
     gap: 50px;
     margin-top: 50px;
-  }
-
-  @media (max-width: 480px) {
     flex-direction: column;
   }
 `;
@@ -166,13 +163,14 @@ const CartItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   padding: 10px 0;
   border-top: 1px solid ${lightGreyColor};
   border-bottom: 1px solid ${lightGreyColor};
 `;
 
 const ProductInfo = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
