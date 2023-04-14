@@ -39,13 +39,19 @@ const Products = () => {
   const [selected, setSelected] = useState("rating");
   const [selectedLabel, setSelectedLabel] = useState("Rating");
 
+  const [skeleton, setSkeleton] = useState(false);
+
   const getFiltersData = async () => {
+    setSkeleton(true);
+
     const filtersData = await getFilters({
       root_category: "makeup",
       brand: checkedBrand,
       country: "SG",
       language: "en-SG",
     });
+
+    setSkeleton(false);
 
     const updatedFilters = filtersData.data;
 
@@ -167,8 +173,6 @@ const Products = () => {
     setSearchParams(new URLSearchParams({ page: currentPage }));
   }, [checkedBrand, checkedFilters, selected, currentPage, slug]);
 
-  console.log("current", currentPage);
-
   return (
     <Layout>
       <MainWrapper>
@@ -180,6 +184,7 @@ const Products = () => {
             saveCheckedFilters={saveCheckedFilters}
             checkedBrand={checkedBrand}
             checkedFilters={checkedFilters}
+            skeleton={skeleton}
           />
           <ProductsWrapper>
             {loading ? (
